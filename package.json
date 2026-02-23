@@ -1,0 +1,10 @@
+{
+  "name": "ugc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UGC auth demo app",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  }
+}
