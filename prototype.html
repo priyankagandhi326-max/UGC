@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Creatr UGC — Nike India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-page:    #E0FBE2;
+  --bg-card-fill: #BFF6C3;
+  --accent:     #ACE1AF;
+  --accent-dark: #5DAE61;
+  --white:      #FFFFFF;
+  --border:     #d1d5db;
+  --text:       #111111;
+  --text-2:     #374151;
+  --text-3:     #6B7280;
+  --text-4:     #9CA3AF;
+  --green-badge-bg: #ACE1AF;
+  --green-badge-tx: #166534;
+  --blue-badge-bg:  #DBEAFE;
+  --blue-badge-tx:  #1E40AF;
+  --amber-badge-bg: #FEF3C7;
+  --amber-badge-tx: #92400E;
+  --red-badge-bg:   #FEE2E2;
+  --red-badge-tx:   #991B1B;
+  --grey-badge-bg:  #F3F4F6;
+  --grey-badge-tx:  #6B7280;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  --r: 8px;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-page);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1, h2, h3, .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.on { display: block; }
+
+/* ── GLOBAL HEADER ── */
+#gheader {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.campaign-label {
+  font-size: 12px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.platform-pill {
+  background: var(--accent);
+  color: var(--green-badge-tx);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.header-sep { flex: 1; }
+
+.kpi-strip { display: flex; gap: 6px; }
+
+.kpi-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  background: var(--white);
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.12s, background 0.12s;
+  white-space: nowrap;
+}
+
+.kpi-pill:hover { border-color: var(--accent-dark); background: var(--bg-card-fill); }
+
+.kpi-label { font-size: 11px; color: var(--text-3); }
+.kpi-val   { font-size: 12px; font-weight: 600; color: var(--text); }
+
+.op-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  cursor: pointer;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: none;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+.op-link:hover { color: var(--text); border-color: #9CA3AF; }
+
+/* ── CONTAINER ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 28px 28px 48px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.card-mint {
+  background: var(--bg-card-fill);
+  border: 1px solid var(--accent);
+  border-radius: var(--r);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+/* ── SECTION HEADER ── */
+.sh {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.sh-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+/* ── GRIDS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.b-green  { background: var(--green-badge-bg); color: var(--green-badge-tx); }
+.b-blue   { background: var(--blue-badge-bg);  color: var(--blue-badge-tx); }
+.b-amber  { background: var(--amber-badge-bg); color: var(--amber-badge-tx); }
+.b-red    { background: var(--red-badge-bg);   color: var(--red-badge-tx); }
+.b-grey   { background: var(--grey-badge-bg);  color: var(--grey-badge-tx); }
+
+/* ── TABLE BASE ── */
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl th {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-4);
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+.tbl td {
+  padding: 11px 12px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  color: var(--text-2);
+}
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tbody tr:hover td { background: #FAFAFA; }
+
+/* ── BUTTONS ── */
+.btn {
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--text-2);
+  font-family: 'Inter', sans-serif;
+  transition: opacity 0.12s, background 0.12s;
+}
+.btn:hover { opacity: 0.8; }
+.btn-dark { background: var(--text); color: #fff; border-color: var(--text); }
+.btn-approve { background: var(--green-badge-bg); color: var(--green-badge-tx); border-color: #86EFAC; }
+.btn-reject  { background: var(--red-badge-bg);   color: var(--red-badge-tx);   border-color: #FCA5A5; }
+
+/* ── BACK BUTTON ── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  cursor: pointer;
+  padding: 4px 0;
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.12s;
+  margin-bottom: 20px;
+}
+.back-btn:hover { color: var(--text); }
+
+/* ─────────────────────────────────────────────
+   SCREEN 1 — BRAND DASHBOARD
+───────────────────────────────────────────── */
+
+/* Hero panel */
+.hero-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-dark);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent-dark);
+}
+.hero-hook-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: 14px;
+  max-width: 640px;
+}
+.hero-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.hero-badge {
+  background: rgba(255,255,255,0.65);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.hero-insight {
+  font-size: 12px;
+  color: var(--accent-dark);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 18px;
+  background: var(--text);
+  color: var(--white);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  transition: opacity 0.12s;
+}
+.hero-cta:hover { opacity: 0.85; }
+
+/* Funnel */
+.funnel-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.funnel-bar-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.funnel-bar {
+  height: 48px;
+  border-radius: 4px;
+  background: var(--bg-card-fill);
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  transition: width 0.4s ease;
+}
+.funnel-bar-label { font-size: 12px; font-weight: 600; color: var(--text); }
+.funnel-bar-val   { font-size: 13px; font-weight: 700; color: var(--text); font-family: 'Cormorant Garamond', serif; }
+.funnel-drop {
+  font-size: 10px;
+  color: var(--text-4);
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.funnel-drop::before { content: '↓'; font-size: 11px; color: var(--red-badge-tx); }
+
+/* Queue */
+.queue-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+  border-radius: 4px;
+}
+.queue-row:last-child { border-bottom: none; }
+.queue-row.approved  { background: #F0FDF4; padding: 14px 10px; }
+.queue-row.rejected  { background: #FEF2F2; padding: 14px 10px; }
+.queue-creator { font-size: 12px; font-weight: 600; color: var(--text); }
+.queue-niche   { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+.queue-script  { font-size: 12px; color: var(--text-2); margin-top: 4px; }
+.queue-btns    { display: flex; gap: 6px; flex-shrink: 0; margin-top: 2px; }
+
+/* Content library */
+.lib-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.lib-row:last-child { border-bottom: none; }
+.lib-creator { font-size: 12px; font-weight: 600; color: var(--text); }
+.lib-views   { font-size: 12px; color: var(--text-3); }
+.lib-expiry  { font-size: 11px; }
+
+/* ─────────────────────────────────────────────
+   SCREEN 2 — HOOK ENGINE
+───────────────────────────────────────────── */
+#screen-hooks { background: var(--bg-page); }
+
+.winner-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-dark);
+  margin-bottom: 10px;
+}
+.winner-hook {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: 14px;
+  max-width: 700px;
+}
+.winner-badges { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.winner-badge {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 3px 11px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.winner-callout {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+/* Leaderboard */
+.hook-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  border: 1px solid transparent;
+}
+.hook-row.winner-row {
+  background: var(--bg-card-fill);
+  border-color: var(--accent);
+}
+.hook-id    { font-size: 10px; font-weight: 700; color: var(--text-4); width: 32px; flex-shrink: 0; }
+.hook-type  { font-size: 10px; color: var(--text-3); width: 90px; flex-shrink: 0; }
+.hook-bar-col { flex: 1; min-width: 0; }
+.hook-desc  { font-size: 11px; color: var(--text-2); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hook-bar-wrap { height: 7px; background: #E5E7EB; border-radius: 4px; overflow: hidden; }
+.hook-bar-fill { height: 100%; border-radius: 4px; background: var(--accent-dark); transition: width 0.4s; }
+.hook-stats { display: flex; gap: 16px; font-size: 11px; color: var(--text-3); width: 200px; flex-shrink: 0; justify-content: flex-end; }
+.hook-stat-item { white-space: nowrap; }
+.hook-stat-item strong { color: var(--text); }
+.hook-action-label { width: 80px; flex-shrink: 0; text-align: right; }
+
+/* SVG chart */
+.chart-outer { position: relative; margin-top: 8px; }
+.y-axis {
+  position: absolute;
+  left: 0; top: 0; bottom: 22px;
+  width: 36px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  align-items: flex-end; padding-right: 6px;
+}
+.y-axis span { font-size: 10px; color: var(--text-4); }
+.chart-area { margin-left: 36px; }
+
+/* Rec card */
+.rec-eyebrow {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--accent-dark); margin-bottom: 10px;
+}
+.rec-hook {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 700; color: var(--text);
+  line-height: 1.3; margin-bottom: 10px;
+}
+.rec-rationale { font-size: 12px; color: var(--text-2); line-height: 1.65; }
+
+/* ─────────────────────────────────────────────
+   SCREEN 3 — OPERATOR VIEW
+───────────────────────────────────────────── */
+#screen-operator { background: var(--bg-page); }
+
+.op-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.op-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.op-back {
+  font-size: 12px;
+  color: var(--text-3);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: 'Inter', sans-serif;
+  display: flex; align-items: center; gap: 4px;
+  padding: 4px;
+  transition: color 0.12s;
+}
+.op-back:hover { color: var(--text); }
+
+/* Metric cards */
+.metric-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.mc-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-4); margin-bottom: 6px; }
+.mc-target { font-size: 11px; color: var(--text-3); margin-bottom: 6px; }
+.mc-input {
+  width: 100%;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  outline: none;
+  padding: 2px 0;
+  transition: border-color 0.15s;
+  letter-spacing: -0.02em;
+}
+.mc-input:focus { border-bottom-color: var(--accent-dark); }
+.mc-delta { font-size: 11px; font-weight: 500; margin-top: 6px; }
+.delta-pos { color: #166534; }
+.delta-neg { color: #991B1B; }
+.delta-zero { color: var(--text-3); }
+
+/* Unit econ */
+.ue-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.ue-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-4); margin-bottom: 6px; }
+.ue-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.ue-desc { font-size: 11px; color: var(--text-3); line-height: 1.4; }
+.aov-row { display: flex; align-items: center; gap: 7px; margin-top: 10px; }
+.aov-label { font-size: 11px; color: var(--text-3); white-space: nowrap; }
+.aov-input {
+  width: 90px; font-size: 13px; font-weight: 500; color: var(--text);
+  border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px;
+  background: var(--bg-page); font-family: 'Inter', sans-serif; outline: none;
+}
+.aov-input:focus { border-color: var(--accent-dark); }
+
+/* ROI table editable cells */
+.roi-cell {
+  font-size: 12px; color: var(--text-2);
+  border: 1px solid transparent; border-radius: 3px;
+  padding: 2px 5px;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.12s, background 0.12s;
+}
+.roi-cell:hover { border-color: var(--border); background: var(--bg-page); }
+.roi-cell:focus { border-color: var(--accent-dark); background: var(--white); }
+
+/* Pacing tracker */
+.pacing-input {
+  font-size: 12px; font-weight: 500; color: var(--text);
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 3px 6px; background: var(--bg-page);
+  font-family: 'Inter', sans-serif; outline: none;
+  width: 72px; text-align: right;
+}
+.pacing-input:focus { border-color: var(--accent-dark); background: var(--white); }
+.total-row td { font-weight: 600; background: var(--bg-card-fill); color: var(--text); }
+
+/* spacers */
+.mb-4 { margin-bottom: 16px; }
+.mb-5 { margin-bottom: 20px; }
+.mb-6 { margin-bottom: 24px; }
+.mt-4 { margin-top: 16px; }
+.mt-5 { margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     GLOBAL HEADER (screens 1 + 2 share it via JS)
+══════════════════════════════════════════ -->
+<header id="gheader">
+  <span class="wordmark" onclick="go('dash')">CREATR.UGC</span>
+  <span class="campaign-label">Nike India — March 2026</span>
+  <span class="platform-pill">Instagram Reels</span>
+  <div class="header-sep"></div>
+  <div class="kpi-strip">
+    <button class="kpi-pill" onclick="go('hooks')">
+      <span class="kpi-label">Total Views</span>
+      <span class="kpi-val">47,02,000</span>
+    </button>
+    <button class="kpi-pill" onclick="go('hooks')">
+      <span class="kpi-label">Viral Videos</span>
+      <span class="kpi-val">2</span>
+    </button>
+    <button class="kpi-pill" onclick="go('hooks')">
+      <span class="kpi-label">Avg Watch Time</span>
+      <span class="kpi-val">38%</span>
+    </button>
+    <button class="kpi-pill" onclick="go('hooks')">
+      <span class="kpi-label">Saves</span>
+      <span class="kpi-val">38,330</span>
+    </button>
+  </div>
+  <button class="op-link" onclick="go('operator')">Operator →</button>
+</header>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 1 — BRAND DASHBOARD
+══════════════════════════════════════════ -->
+<div id="screen-dash" class="screen on">
+  <div class="container">
+
+    <!-- Section 1: Hero -->
+    <div class="card-mint mb-6">
+      <div class="hero-eyebrow">AI Hook Engine</div>
+      <div class="hero-hook-text">"I got expelled for this AI tool — and then raised ₹40 crore"</div>
+      <div class="hero-badges">
+        <span class="hero-badge">Type: Outrage</span>
+        <span class="hero-badge">3-sec retention: 72%</span>
+        <span class="hero-badge">Videos tested: 5</span>
+      </div>
+      <div class="hero-insight">↑ This hook is outperforming your baseline by +23pts</div>
+      <button class="hero-cta" onclick="go('hooks')">See full analysis →</button>
+    </div>
+
+    <!-- Section 2: Videos + Funnel -->
+    <div class="grid-2 mb-6">
+      <!-- Top Performing Videos -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title">Top Performing Videos</span>
+          <span style="font-size:11px;color:var(--text-4)">This cycle</span>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Creator</th>
+              <th>Niche</th>
+              <th>Views</th>
+              <th>Status</th>
+              <th>Watch Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:var(--text)">@creator7</strong></td>
+              <td>Lifestyle</td>
+              <td><strong style="color:var(--text)">21,00,000</strong></td>
+              <td><span class="badge b-green">VIRAL</span></td>
+              <td>44%</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--text)">@creator1</strong></td>
+              <td>Productivity</td>
+              <td><strong style="color:var(--text)">12,50,000</strong></td>
+              <td><span class="badge b-green">VIRAL</span></td>
+              <td>38%</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--text)">@creator5</strong></td>
+              <td>Student</td>
+              <td>8,90,000</td>
+              <td><span class="badge b-blue">Strong</span></td>
+              <td>37%</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--text)">@creator3</strong></td>
+              <td>Tech/AI</td>
+              <td>3,20,000</td>
+              <td><span class="badge b-blue">Strong</span></td>
+              <td>35%</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--text)">@creator2</strong></td>
+              <td>Lifestyle</td>
+              <td>85,000</td>
+              <td><span class="badge b-amber">Growing</span></td>
+              <td>28%</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--text)">@creator4</strong></td>
+              <td>Finance</td>
+              <td>42,000</td>
+              <td><span class="badge b-red">Low</span></td>
+              <td>22%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Conversion Funnel -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title">Conversion Funnel</span>
+          <span style="font-size:11px;color:var(--text-4)">Mar 2026</span>
+        </div>
+        <div style="padding: 8px 0;">
+          <!-- Profile Visits -->
+          <div class="funnel-bar-wrap">
+            <div class="funnel-bar" style="width:100%">
+              <span class="funnel-bar-label">Profile Visits</span>
+              <span class="funnel-bar-val">8,000</span>
+            </div>
+          </div>
+          <!-- Drop 1 -->
+          <div class="funnel-drop" style="padding-left:20px;margin:6px 0">
+            −85% drop-off
+          </div>
+          <!-- Bio Clicks -->
+          <div class="funnel-bar-wrap">
+            <div class="funnel-bar" style="width:75%">
+              <span class="funnel-bar-label">Bio Clicks</span>
+              <span class="funnel-bar-val">1,200</span>
+            </div>
+          </div>
+          <!-- Drop 2 -->
+          <div class="funnel-drop" style="padding-left:20px;margin:6px 0">
+            −75% drop-off
+          </div>
+          <!-- Signups -->
+          <div class="funnel-bar-wrap">
+            <div class="funnel-bar" style="width:40%">
+              <span class="funnel-bar-label">Signups</span>
+              <span class="funnel-bar-val">300</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:flex;gap:20px">
+          <div>
+            <div style="font-size:10px;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">Visit → Signup</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--text)">3.75%</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">Click → Signup</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--text)">25%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Script Queue + Content Library -->
+    <div class="grid-2">
+      <!-- Script Approval Queue -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title">Script Approval Queue</span>
+          <span class="badge b-amber" id="pending-count">2 pending</span>
+        </div>
+
+        <div class="queue-row" id="qrow-0">
+          <div style="flex:1">
+            <div class="queue-creator">@creator8 <span class="queue-niche" style="font-weight:400;color:var(--text-3)">· Tech/AI</span></div>
+            <div class="queue-script">"Hook script for product demo week 2"</div>
+          </div>
+          <div class="queue-btns">
+            <button class="btn btn-approve" id="q0-a" onclick="approve(0)">Approve</button>
+            <button class="btn btn-reject"  id="q0-r" onclick="reject(0)">Reject</button>
+          </div>
+        </div>
+
+        <div class="queue-row" id="qrow-1">
+          <div style="flex:1">
+            <div class="queue-creator">@creator9 <span style="font-weight:400;color:var(--text-3)">· Student</span></div>
+            <div class="queue-script">"Relatable study workflow hook"</div>
+          </div>
+          <div class="queue-btns">
+            <button class="btn btn-approve" id="q1-a" onclick="approve(1)">Approve</button>
+            <button class="btn btn-reject"  id="q1-r" onclick="reject(1)">Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Library -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title">Content Library</span>
+          <span style="font-size:11px;color:var(--text-4)">Ad rights expiry</span>
+        </div>
+
+        <div class="lib-row">
+          <div>
+            <div class="lib-creator">@creator7</div>
+            <div class="lib-views">2.1M views</div>
+          </div>
+          <div class="lib-expiry" style="text-align:right">
+            <div style="font-size:11px;color:var(--text-3)">Expires</div>
+            <div class="badge b-grey" style="font-size:11px">30 Jun 2026</div>
+          </div>
+        </div>
+
+        <div class="lib-row">
+          <div>
+            <div class="lib-creator">@creator1</div>
+            <div class="lib-views">1.25M views</div>
+          </div>
+          <div class="lib-expiry" style="text-align:right">
+            <div style="font-size:11px;color:var(--amber-badge-tx)">Expires soon</div>
+            <div class="badge b-amber" style="font-size:11px">15 Apr 2026</div>
+          </div>
+        </div>
+
+        <div class="lib-row">
+          <div>
+            <div class="lib-creator">@creator3</div>
+            <div class="lib-views">320K views</div>
+          </div>
+          <div class="lib-expiry" style="text-align:right">
+            <div style="font-size:11px;color:var(--red-badge-tx)">Expires soon</div>
+            <div class="badge b-red" style="font-size:11px">02 Apr 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 2 — AI HOOK ENGINE
+══════════════════════════════════════════ -->
+<div id="screen-hooks" class="screen">
+  <div class="container">
+    <button class="back-btn" onclick="go('dash')">← Back to Dashboard</button>
+
+    <!-- Section 1: Winner card -->
+    <div class="card-mint mb-6">
+      <div class="winner-eyebrow">Winning Hook</div>
+      <div class="winner-hook">"I got expelled for this AI tool — and then raised ₹40 crore"</div>
+      <div class="winner-badges">
+        <span class="winner-badge">Type: Outrage</span>
+        <span class="winner-badge">Retention: 72%</span>
+        <span class="winner-badge">Videos tested: 5</span>
+        <span class="winner-badge">Outrage score: 5/5</span>
+      </div>
+      <div class="winner-callout">Beating your baseline by +23pts</div>
+    </div>
+
+    <!-- Section 2: Hook leaderboard -->
+    <div class="card mb-6">
+      <div class="sh">
+        <span class="sh-title">Hook Leaderboard</span>
+        <span style="font-size:11px;color:var(--text-4)">Sorted by 3-sec retention</span>
+      </div>
+
+      <!-- Header row -->
+      <div style="display:flex;align-items:center;gap:10px;padding:6px 12px;margin-bottom:4px">
+        <div style="width:32px;font-size:10px;font-weight:600;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em">ID</div>
+        <div style="width:90px;font-size:10px;font-weight:600;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em">Type</div>
+        <div style="flex:1;font-size:10px;font-weight:600;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em">Hook · Retention bar</div>
+        <div style="width:200px;font-size:10px;font-weight:600;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em;text-align:right">Full play · Views</div>
+        <div style="width:80px;font-size:10px;font-weight:600;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em;text-align:right">Action</div>
+      </div>
+
+      <!-- H001 WINNER -->
+      <div class="hook-row winner-row">
+        <div class="hook-id">H001</div>
+        <div class="hook-type">Outrage</div>
+        <div class="hook-bar-col">
+          <div class="hook-desc">"I got expelled for this AI tool — and then raised ₹40 crore"</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="hook-bar-wrap" style="flex:1"><div class="hook-bar-fill" style="width:100%;background:var(--accent-dark)"></div></div>
+            <span style="font-size:11px;font-weight:600;color:var(--text);white-space:nowrap">72%</span>
+          </div>
+        </div>
+        <div class="hook-stats">
+          <div class="hook-stat-item"><strong>48%</strong> full play</div>
+          <div class="hook-stat-item"><strong>8.9L</strong> views</div>
+        </div>
+        <div class="hook-action-label"><span class="badge b-green">WINNER</span></div>
+      </div>
+
+      <!-- H006 -->
+      <div class="hook-row">
+        <div class="hook-id">H006</div>
+        <div class="hook-type" style="font-size:10px;color:var(--text-3)">Curiosity/Secret</div>
+        <div class="hook-bar-col">
+          <div class="hook-desc">"The one AI tool every student uses but won't admit to"</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="hook-bar-wrap" style="flex:1"><div class="hook-bar-fill" style="width:88.9%"></div></div>
+            <span style="font-size:11px;font-weight:600;color:var(--text);white-space:nowrap">64%</span>
+          </div>
+        </div>
+        <div class="hook-stats">
+          <div class="hook-stat-item"><strong>43%</strong> full play</div>
+          <div class="hook-stat-item"><strong>5.6L</strong> views</div>
+        </div>
+        <div class="hook-action-label"><span class="badge b-green">WINNER</span></div>
+      </div>
+
+      <!-- H002 -->
+      <div class="hook-row">
+        <div class="hook-id">H002</div>
+        <div class="hook-type" style="font-size:10px;color:var(--text-3)">Shock/Curiosity</div>
+        <div class="hook-bar-col">
+          <div class="hook-desc">"This AI tool got 4 students expelled — and funded by IIT alumni"</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="hook-bar-wrap" style="flex:1"><div class="hook-bar-fill" style="width:84.7%"></div></div>
+            <span style="font-size:11px;font-weight:600;color:var(--text);white-space:nowrap">61%</span>
+          </div>
+        </div>
+        <div class="hook-stats">
+          <div class="hook-stat-item"><strong>38%</strong> full play</div>
+          <div class="hook-stat-item"><strong>4.2L</strong> views</div>
+        </div>
+        <div class="hook-action-label"><span class="badge b-grey">Test more</span></div>
+      </div>
+
+      <!-- H005 -->
+      <div class="hook-row">
+        <div class="hook-id">H005</div>
+        <div class="hook-type" style="font-size:10px;color:var(--text-3)">Demo/How-to</div>
+        <div class="hook-bar-col">
+          <div class="hook-desc">"Watch me build a ₹10L business in 47 minutes with AI"</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="hook-bar-wrap" style="flex:1"><div class="hook-bar-fill" style="width:80.6%"></div></div>
+            <span style="font-size:11px;font-weight:600;color:var(--text);white-space:nowrap">58%</span>
+          </div>
+        </div>
+        <div class="hook-stats">
+          <div class="hook-stat-item"><strong>41%</strong> full play</div>
+          <div class="hook-stat-item"><strong>3.1L</strong> views</div>
+        </div>
+        <div class="hook-action-label"><span class="badge b-grey">Test more</span></div>
+      </div>
+
+      <!-- H003 -->
+      <div class="hook-row">
+        <div class="hook-id">H003</div>
+        <div class="hook-type" style="font-size:10px;color:var(--text-3)">Relatability</div>
+        <div class="hook-bar-col">
+          <div class="hook-desc">"POV: your entire productivity system in one free tool"</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="hook-bar-wrap" style="flex:1"><div class="hook-bar-fill" style="width:76.4%"></div></div>
+            <span style="font-size:11px;font-weight:600;color:var(--text);white-space:nowrap">55%</span>
+          </div>
+        </div>
+        <div class="hook-stats">
+          <div class="hook-stat-item"><strong>32%</strong> full play</div>
+          <div class="hook-stat-item"><strong>2.8L</strong> views</div>
+        </div>
+        <div class="hook-action-label"><span class="badge b-grey">Test more</span></div>
+      </div>
+
+      <!-- H004 — below 50% → DROP -->
+      <div class="hook-row">
+        <div class="hook-id">H004</div>
+        <div class="hook-type" style="font-size:10px;color:var(--text-3)">POV Format</div>
+        <div class="hook-bar-col">
+          <div class="hook-desc">"POV: you found the one AI tool that actually saves time"</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="hook-bar-wrap" style="flex:1"><div class="hook-bar-fill" style="width:68.1%;background:#EF4444"></div></div>
+            <span style="font-size:11px;font-weight:600;color:#EF4444;white-space:nowrap">49%</span>
+          </div>
+        </div>
+        <div class="hook-stats">
+          <div class="hook-stat-item"><strong>27%</strong> full play</div>
+          <div class="hook-stat-item"><strong>1.45L</strong> views</div>
+        </div>
+        <div class="hook-action-label"><span class="badge b-red">DROP</span></div>
+      </div>
+    </div>
+
+    <!-- Section 3: Chart + Recommendation -->
+    <div class="grid-2">
+      <!-- Retention Trend SVG -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title">Retention Trend</span>
+          <span style="font-size:11px;color:var(--text-4)">3-sec retention by week</span>
+        </div>
+        <div class="chart-outer">
+          <div class="y-axis">
+            <span>70%</span>
+            <span>60%</span>
+            <span>50%</span>
+            <span>40%</span>
+          </div>
+          <div class="chart-area">
+            <svg width="100%" height="200" viewBox="0 0 400 170" preserveAspectRatio="none">
+              <!-- Grid lines -->
+              <line x1="0" y1="0"   x2="400" y2="0"   stroke="#E5E7EB" stroke-width="1"/>
+              <line x1="0" y1="42"  x2="400" y2="42"  stroke="#E5E7EB" stroke-width="1"/>
+              <line x1="0" y1="84"  x2="400" y2="84"  stroke="#E5E7EB" stroke-width="1"/>
+              <line x1="0" y1="126" x2="400" y2="126" stroke="#E5E7EB" stroke-width="1"/>
+
+              <!-- Winner threshold line at 60% — dashed -->
+              <!-- range 40-70 = 30pp span. y-range = 126px. 60% = 66.7% from bottom = 33.3% from top = 42px from top -->
+              <line x1="0" y1="42" x2="400" y2="42"
+                stroke="#ACE1AF" stroke-width="1.5" stroke-dasharray="6,4"/>
+              <text x="2" y="38" font-size="9" fill="#5DAE61" font-family="Inter,sans-serif" font-weight="600">60% threshold</text>
+
+              <!-- Data: W1=48%, W2=54%, W3=61%, W4=58%
+                   y = ((70 - val) / 30) * 126
+                   W1=48: (22/30)*126 = 92.4
+                   W2=54: (16/30)*126 = 67.2
+                   W3=61: (9/30)*126  = 37.8  ← peak
+                   W4=58: (12/30)*126 = 50.4
+              -->
+              <!-- Area fill -->
+              <polygon
+                points="50,92.4 150,67.2 250,37.8 350,50.4 350,126 50,126"
+                fill="rgba(172,225,175,0.25)"
+              />
+              <!-- Line -->
+              <polyline
+                points="50,92.4 150,67.2 250,37.8 350,50.4"
+                fill="none"
+                stroke="#166534"
+                stroke-width="2.5"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+              />
+              <!-- Dots -->
+              <circle cx="50"  cy="92.4" r="4" fill="#166534"/>
+              <circle cx="150" cy="67.2" r="4" fill="#166534"/>
+              <circle cx="250" cy="37.8" r="5" fill="#166534" stroke="#fff" stroke-width="2"/>
+              <circle cx="350" cy="50.4" r="4" fill="#166534"/>
+
+              <!-- Peak label -->
+              <text x="250" y="28" text-anchor="middle" font-size="11" fill="#166534" font-family="Inter,sans-serif" font-weight="700">61% ↑ Peak</text>
+
+              <!-- Value labels -->
+              <text x="50"  y="108" text-anchor="middle" font-size="10" fill="#6B7280" font-family="Inter,sans-serif">48%</text>
+              <text x="150" y="84"  text-anchor="middle" font-size="10" fill="#6B7280" font-family="Inter,sans-serif">54%</text>
+              <text x="350" y="66"  text-anchor="middle" font-size="10" fill="#6B7280" font-family="Inter,sans-serif">58%</text>
+
+              <!-- Week labels -->
+              <text x="50"  y="148" text-anchor="middle" font-size="11" fill="#9CA3AF" font-family="Inter,sans-serif">W1</text>
+              <text x="150" y="148" text-anchor="middle" font-size="11" fill="#9CA3AF" font-family="Inter,sans-serif">W2</text>
+              <text x="250" y="148" text-anchor="middle" font-size="11" fill="#9CA3AF" font-family="Inter,sans-serif">W3</text>
+              <text x="350" y="148" text-anchor="middle" font-size="11" fill="#9CA3AF" font-family="Inter,sans-serif">W4</text>
+            </svg>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:10px">
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-3)">
+            <div style="width:14px;height:2.5px;background:#166534;border-radius:2px"></div>
+            Campaign retention
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-3)">
+            <div style="width:14px;height:1.5px;background:#ACE1AF;border-radius:2px"></div>
+            60% winner threshold
+          </div>
+        </div>
+      </div>
+
+      <!-- Next hook recommendation -->
+      <div style="background:#E0FBE2;border:1px solid var(--accent);border-radius:var(--r);padding:24px;box-shadow:var(--shadow)">
+        <div class="rec-eyebrow">AI Recommendation</div>
+        <div style="font-size:11px;font-weight:500;color:var(--text-3);margin-bottom:8px">Hook type: Authority/Proof</div>
+        <div class="rec-hook">"I tested 47 AI tools so you don't have to — this one actually works"</div>
+        <div class="rec-rationale">High-performing pattern in productivity niche, untested in your campaign. Combines curiosity with authority signal — projects 65–70% retention based on comparable hooks across the roster.</div>
+        <div style="margin-top:18px;display:flex;gap:8px">
+          <button class="btn btn-dark" onclick="alert('Hook added to brief')">Add to Brief</button>
+          <button class="btn" onclick="alert('Generating variants...')">Generate Variants</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 3 — OPERATOR VIEW
+══════════════════════════════════════════ -->
+<div id="screen-operator" class="screen">
+  <div class="container">
+
+    <div class="op-header">
+      <h1 class="op-title">Operator View</h1>
+      <button class="op-back" onclick="go('dash')">← Back to Dashboard</button>
+    </div>
+
+    <!-- Section 1: Editable Metrics -->
+    <div class="sh mb-4">
+      <span class="sh-title">Campaign Metrics</span>
+      <span style="font-size:11px;color:var(--text-4)">Click any value to edit · deltas auto-calculate</span>
+    </div>
+    <div class="grid-3 mb-6" id="metrics-grid">
+      <!-- Rendered by JS -->
+    </div>
+
+    <!-- Section 2: Unit Economics -->
+    <div class="sh mb-4">
+      <span class="sh-title">Unit Economics</span>
+      <span style="font-size:11px;color:var(--text-4)">Auto-calculated from actuals above</span>
+    </div>
+    <div class="grid-4 mb-6">
+      <div class="ue-card">
+        <div class="ue-label">Views per ₹</div>
+        <div class="ue-val" id="ue-vpr">—</div>
+        <div class="ue-desc">Total views ÷ total spend</div>
+      </div>
+      <div class="ue-card">
+        <div class="ue-label">CPM (₹)</div>
+        <div class="ue-val" id="ue-cpm">—</div>
+        <div class="ue-desc">Spend per 1,000 views</div>
+      </div>
+      <div class="ue-card">
+        <div class="ue-label">CPA (₹)</div>
+        <div class="ue-val" id="ue-cpa">—</div>
+        <div class="ue-desc">Spend ÷ signups</div>
+      </div>
+      <div class="ue-card">
+        <div class="ue-label">ROAS</div>
+        <div class="ue-val" id="ue-roas">—</div>
+        <div class="ue-desc">(Signups × AOV) ÷ spend</div>
+        <div class="aov-row">
+          <span class="aov-label">Avg Order ₹</span>
+          <input class="aov-input" id="aov-input" type="text" value="1200" oninput="recalcUE()" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Creator ROI + Pacing -->
+    <div class="grid-2 mb-6">
+      <!-- Creator ROI Table -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title">Creator ROI</span>
+          <span style="font-size:11px;color:var(--text-4)">Inline-editable</span>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Creator</th>
+              <th>Niche</th>
+              <th>Videos</th>
+              <th>Views</th>
+              <th>Views/₹</th>
+              <th>ROI</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="roi-tbody"><!-- JS --></tbody>
+        </table>
+      </div>
+
+      <!-- Weekly Pacing Tracker -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title">Weekly Pacing</span>
+          <span style="font-size:11px;color:var(--text-4)">Totals auto-sum · Views/₹ auto-calc</span>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Targeted</th>
+              <th>Posted</th>
+              <th>Viral</th>
+              <th>Views</th>
+              <th>Spend ₹</th>
+              <th>Views/₹</th>
+            </tr>
+          </thead>
+          <tbody id="pacing-tbody"><!-- JS --></tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="3" style="font-size:11px">Total</td>
+              <td id="pt-viral">—</td>
+              <td id="pt-views">—</td>
+              <td id="pt-spend">—</td>
+              <td id="pt-vpr">—</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 4: Clipping Tracker -->
+    <div class="sh mb-4">
+      <span class="sh-title">Clipping Tracker</span>
+    </div>
+    <div class="grid-2">
+      <!-- Clipping Rights -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title" style="font-size:16px">Rights Status</span>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Creator</th>
+              <th>Status</th>
+              <th>Clips Live</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong style="color:var(--text)">@productivityneha</strong></td><td><span class="badge b-green">Signed ✓</span></td><td>12</td></tr>
+            <tr><td><strong style="color:var(--text)">@viralpriya</strong></td><td><span class="badge b-green">Signed ✓</span></td><td>8</td></tr>
+            <tr><td><strong style="color:var(--text)">@studentkiran</strong></td><td><span class="badge b-green">Signed ✓</span></td><td>6</td></tr>
+            <tr><td><strong style="color:var(--text)">@techrohan</strong></td><td><span class="badge b-amber">Pending</span></td><td>0</td></tr>
+            <tr><td><strong style="color:var(--text)">@aiwalasahil</strong></td><td><span class="badge b-amber">Pending</span></td><td>0</td></tr>
+            <tr><td><strong style="color:var(--text)">@financeamit</strong></td><td><span class="badge b-grey">Not signed</span></td><td>0</td></tr>
+            <tr><td><strong style="color:var(--text)">@lifestylesimran</strong></td><td><span class="badge b-grey">Not signed</span></td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Clip Performance -->
+      <div class="card">
+        <div class="sh">
+          <span class="sh-title" style="font-size:16px">Clip Performance</span>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Clip</th>
+              <th>Creator</th>
+              <th>Account</th>
+              <th>Views</th>
+              <th>Urgency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Clip 01</td>
+              <td>@viralpriya</td>
+              <td style="color:var(--text-3)">@lifestyle.reels.in</td>
+              <td><strong style="color:var(--text)">3,40,000</strong></td>
+              <td><span class="badge b-amber">Repost urgency</span></td>
+            </tr>
+            <tr>
+              <td>Clip 02</td>
+              <td>@productivityneha</td>
+              <td style="color:var(--text-3)">@worksmart.india</td>
+              <td><strong style="color:var(--text)">2,10,000</strong></td>
+              <td><span class="badge b-amber">Repost urgency</span></td>
+            </tr>
+            <tr>
+              <td>Clip 03</td>
+              <td>@studentkiran</td>
+              <td style="color:var(--text-3)">@studygrind.ig</td>
+              <td><strong style="color:var(--text)">1,80,000</strong></td>
+              <td><span class="badge b-amber">Repost urgency</span></td>
+            </tr>
+            <tr>
+              <td>Clip 04</td>
+              <td>@viralpriya</td>
+              <td style="color:var(--text-3)">@trending.india</td>
+              <td>95,000</td>
+              <td><span class="badge b-grey">Monitor</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="height:48px"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+// ─── STATE ────────────────────────────────────────────
+const S = {
+  queueState: { 0: null, 1: null },   // null | 'approved' | 'rejected'
+
+  metrics: [
+    { key:'views',   label:'Total Views',       target:500000,  actual:4702000, fmt:'num' },
+    { key:'viral',   label:'Viral Videos',      target:3,       actual:2,       fmt:'int' },
+    { key:'wt',      label:'Avg Watch Time %',  target:35,      actual:38,      fmt:'pct' },
+    { key:'saves',   label:'Saves',             target:3000,    actual:38330,   fmt:'num' },
+    { key:'pv',      label:'Profile Visits',    target:8000,    actual:8000,    fmt:'num' },
+    { key:'bc',      label:'Bio Clicks',        target:1200,    actual:1200,    fmt:'num' },
+    { key:'su',      label:'Signups',           target:300,     actual:300,     fmt:'int' },
+    { key:'spend',   label:'Total Spend ₹',     target:258000,  actual:258000,  fmt:'inr' },
+  ],
+
+  roi: [
+    { h:'@productivityneha', n:'Productivity', v:15, views:3100000, vpinr:310,  roi:'10/10', s:'Superstar' },
+    { h:'@viralpriya',       n:'Lifestyle',    v:8,  views:2350000, vpinr:379,  roi:'10/10', s:'Superstar' },
+    { h:'@studentkiran',     n:'Student',      v:10, views:1560000, vpinr:260,  roi:'10/10', s:'Superstar' },
+    { h:'@techrohan',        n:'Tech/AI',      v:12, views:980000,  vpinr:169,  roi:'9.8/10',s:'High Performer' },
+    { h:'@aiwalasahil',      n:'Tech/AI',      v:9,  views:720000,  vpinr:157,  roi:'7.2/10',s:'High Performer' },
+    { h:'@financeamit',      n:'Finance',      v:6,  views:210000,  vpinr:87.5, roi:'2.1/10',s:'Growing' },
+    { h:'@lifestylesimran',  n:'Lifestyle',    v:5,  views:45000,   vpinr:22.5, roi:'0.5/10',s:'Review' },
+  ],
+
+  pacing: [
+    { w:'Week 1 · Mar 1–7',  tgt:100, posted:88,  viral:1, views:180000, spend:55000 },
+    { w:'Week 2 · Mar 8–14', tgt:100, posted:105, viral:2, views:420000, spend:63000 },
+    { w:'Week 3 · Mar 15–21',tgt:100, posted:112, viral:3, views:890000, spend:72000 },
+    { w:'Week 4 · Mar 22–28',tgt:100, posted:98,  viral:2, views:650000, spend:68000 },
+  ],
+};
+
+// ─── NAVIGATION ───────────────────────────────────────
+function go(screen) {
+  ['dash','hooks','operator'].forEach(s => {
+    document.getElementById('screen-' + s).classList.remove('on');
+  });
+  document.getElementById('screen-' + screen).classList.add('on');
+
+  // Show/hide global header
+  const header = document.getElementById('gheader');
+  header.style.display = (screen === 'operator') ? 'none' : 'flex';
+
+  if (screen === 'operator') {
+    renderMetrics();
+    renderROI();
+    renderPacing();
+    recalcUE();
+  }
+}
+
+// ─── QUEUE TOGGLE ─────────────────────────────────────
+function approve(idx) {
+  const prev = S.queueState[idx];
+  S.queueState[idx] = prev === 'approved' ? null : 'approved';
+  renderQueue(idx);
+}
+function reject(idx) {
+  const prev = S.queueState[idx];
+  S.queueState[idx] = prev === 'rejected' ? null : 'rejected';
+  renderQueue(idx);
+}
+function renderQueue(idx) {
+  const row = document.getElementById('qrow-' + idx);
+  const s   = S.queueState[idx];
+  row.className = 'queue-row' + (s === 'approved' ? ' approved' : s === 'rejected' ? ' rejected' : '');
+
+  const aBtn = document.getElementById('q' + idx + '-a');
+  const rBtn = document.getElementById('q' + idx + '-r');
+
+  if (s === 'approved') {
+    aBtn.textContent = 'Approved ✓'; aBtn.className = 'btn btn-approve';
+    rBtn.textContent = 'Reject';     rBtn.className = 'btn btn-reject';
+  } else if (s === 'rejected') {
+    aBtn.textContent = 'Approve';    aBtn.className = 'btn btn-approve';
+    rBtn.textContent = 'Rejected ✗'; rBtn.className = 'btn btn-reject';
+  } else {
+    aBtn.textContent = 'Approve'; aBtn.className = 'btn btn-approve';
+    rBtn.textContent = 'Reject';  rBtn.className = 'btn btn-reject';
+  }
+
+  // Update pending count badge
+  const pending = Object.values(S.queueState).filter(v => v === null).length;
+  const badge = document.getElementById('pending-count');
+  if (badge) badge.textContent = pending + ' pending';
+}
+
+// ─── FORMAT HELPERS ───────────────────────────────────
+function fmtNum(n) {
+  return Math.round(n).toLocaleString('en-IN');
+}
+function fmtInr(n) {
+  return '₹' + Math.round(n).toLocaleString('en-IN');
+}
+function parseRaw(str) {
+  return parseFloat(str.replace(/[^0-9.]/g, '')) || 0;
+}
+
+function calcDelta(target, actual, fmt) {
+  const diff = actual - target;
+  const pct  = target !== 0 ? ((diff / target) * 100).toFixed(1) : '0';
+  let dispDiff;
+  if (fmt === 'pct')  dispDiff = (diff >= 0 ? '+' : '') + diff.toFixed(1) + 'pp';
+  else if (fmt === 'inr') dispDiff = (diff >= 0 ? '+' : '') + fmtInr(Math.abs(diff)) + (diff < 0 ? ' under' : ' over');
+  else dispDiff = (diff >= 0 ? '+' : '') + fmtNum(Math.abs(diff));
+  const cls = diff >= 0 ? 'delta-pos' : 'delta-neg';
+  return `<span class="mc-delta ${cls}">${dispDiff} (${diff >= 0 ? '+' : ''}${pct}% vs target)</span>`;
+}
+
+// ─── METRICS GRID ─────────────────────────────────────
+function renderMetrics() {
+  const grid = document.getElementById('metrics-grid');
+  grid.innerHTML = '';
+  S.metrics.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'metric-card';
+
+    let displayVal;
+    if (m.fmt === 'pct')  displayVal = m.actual + '%';
+    else if (m.fmt === 'inr') displayVal = m.actual.toString();
+    else displayVal = m.actual.toString();
+
+    card.innerHTML = `
+      <div class="mc-label">${m.label}</div>
+      <div class="mc-target">Target: ${m.fmt === 'inr' ? fmtInr(m.target) : m.fmt === 'pct' ? m.target + '%' : fmtNum(m.target)}</div>
+      <input class="mc-input" data-idx="${i}" value="${displayVal}" oninput="onMetricInput(${i}, this.value)" />
+      <div id="mdelta-${i}">${calcDelta(m.target, m.actual, m.fmt)}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function onMetricInput(idx, val) {
+  const m = S.metrics[idx];
+  const n = parseRaw(val);
+  m.actual = n;
+  document.getElementById('mdelta-' + idx).innerHTML = calcDelta(m.target, n, m.fmt);
+  recalcUE();
+}
+
+// ─── UNIT ECONOMICS ───────────────────────────────────
+function recalcUE() {
+  const views  = S.metrics.find(m => m.key === 'views').actual;
+  const spend  = S.metrics.find(m => m.key === 'spend').actual;
+  const su     = S.metrics.find(m => m.key === 'su').actual;
+  const aovRaw = document.getElementById('aov-input');
+  const aov    = aovRaw ? parseRaw(aovRaw.value) : 1200;
+
+  if (spend > 0 && views > 0) {
+    document.getElementById('ue-vpr').textContent = (views / spend).toFixed(1);
+    document.getElementById('ue-cpm').textContent = '₹' + ((spend / views) * 1000).toFixed(0);
+  }
+  if (spend > 0 && su > 0) {
+    document.getElementById('ue-cpa').textContent  = '₹' + (spend / su).toFixed(0);
+    document.getElementById('ue-roas').textContent = ((su * aov) / spend).toFixed(2) + '×';
+  }
+}
+
+// ─── ROI TABLE ────────────────────────────────────────
+const roiStatusMap = {
+  'Superstar':      'b-green',
+  'High Performer': 'b-blue',
+  'Growing':        'b-amber',
+  'Review':         'b-red',
+};
+
+function renderROI() {
+  const tbody = document.getElementById('roi-tbody');
+  tbody.innerHTML = '';
+  S.roi.forEach((r, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input class="roi-cell" value="${r.h}" style="width:130px" /></td>
+      <td><input class="roi-cell" value="${r.n}" style="width:90px" /></td>
+      <td><input class="roi-cell" value="${r.v}" style="width:50px" oninput="" /></td>
+      <td><input class="roi-cell" value="${fmtNum(r.views)}" style="width:90px" /></td>
+      <td><input class="roi-cell" value="${r.vpinr}" style="width:60px" /></td>
+      <td><input class="roi-cell" value="${r.roi}" style="width:60px" /></td>
+      <td><span class="badge ${roiStatusMap[r.s] || 'b-grey'}">${r.s}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// ─── PACING TRACKER ───────────────────────────────────
+function renderPacing() {
+  const tbody = document.getElementById('pacing-tbody');
+  tbody.innerHTML = '';
+  S.pacing.forEach((p, i) => {
+    const vpr = p.spend > 0 ? (p.views / p.spend).toFixed(1) : '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-size:11px;color:var(--text-3);white-space:nowrap">${p.w}</td>
+      <td><input class="pacing-input" data-row="${i}" data-col="tgt"    value="${p.tgt}"                   oninput="onPacing(${i},'tgt',this.value)" /></td>
+      <td><input class="pacing-input" data-row="${i}" data-col="posted" value="${p.posted}"                oninput="onPacing(${i},'posted',this.value)" /></td>
+      <td><input class="pacing-input" data-row="${i}" data-col="viral"  value="${p.viral}"                 oninput="onPacing(${i},'viral',this.value)" /></td>
+      <td><input class="pacing-input" data-row="${i}" data-col="views"  value="${fmtNum(p.views)}"         oninput="onPacing(${i},'views',this.value)" /></td>
+      <td><input class="pacing-input" data-row="${i}" data-col="spend"  value="${fmtNum(p.spend)}"         oninput="onPacing(${i},'spend',this.value)" /></td>
+      <td id="prow-vpr-${i}" style="font-size:12px;font-weight:600;color:var(--text)">${vpr}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  recalcPacingTotals();
+}
+
+function onPacing(row, col, val) {
+  const n = parseRaw(val);
+  S.pacing[row][col] = n;
+  const p = S.pacing[row];
+  const vpr = p.spend > 0 ? (p.views / p.spend).toFixed(1) : '—';
+  const el = document.getElementById('prow-vpr-' + row);
+  if (el) el.textContent = vpr;
+  recalcPacingTotals();
+}
+
+function recalcPacingTotals() {
+  let tv = 0, ts = 0, tviral = 0;
+  S.pacing.forEach(p => { tv += p.views; ts += p.spend; tviral += p.viral; });
+  document.getElementById('pt-viral').textContent = tviral;
+  document.getElementById('pt-views').textContent = fmtNum(tv);
+  document.getElementById('pt-spend').textContent = fmtNum(ts);
+  document.getElementById('pt-vpr').textContent   = ts > 0 ? (tv / ts).toFixed(1) : '—';
+}
+
+// ─── INIT ─────────────────────────────────────────────
+// Screens start hidden except dash — nothing needed, CSS handles it.
+// Precompute unit econ once on DOMContentLoaded trigger isn't needed;
+// recalcUE is called when operator screen loads.
+</script>
+</body>
+</html>

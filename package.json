@@ -1,0 +1,8 @@
+{
+  "name": "ugc-root",
+  "private": true,
+  "scripts": {
+    "dev": "bash ./run.sh",
+    "dev:clean": "bash ./run.sh"
+  }
+}
