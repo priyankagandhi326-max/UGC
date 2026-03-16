@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CREATR.UGC &mdash; For Brands</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:#000;color:#f5f5f5;overflow-x:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:#fff;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#ring{position:fixed;width:32px;height:32px;border:1px solid rgba(255,255,255,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:1100px;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(0,0,0,.7);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.12);border-radius:60px;z-index:100;transition:background .4s}
+nav.sc{background:rgba(0,0,0,.96)}
+.nlogo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nlogo img{width:28px;height:28px;object-fit:contain;filter:invert(1)}
+.nlogo span{font-size:13px;font-weight:800;color:#f5f5f5;letter-spacing:.1em}
+.nlinks{display:flex;gap:28px;list-style:none;align-items:center}
+.nlinks a{font-size:13px;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.nlinks a:hover,.nlinks a.active{color:#fff}
+.nbtn-outline{background:transparent;border:1px solid rgba(255,255,255,.2);color:#f5f5f5;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;padding:10px 20px;border-radius:50px;cursor:pointer;text-decoration:none;transition:all .25s}
+.nbtn-outline:hover{background:rgba(255,255,255,.08)}
+.nbtn-solid{background:#fff;color:#000;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:800;padding:10px 22px;border-radius:50px;cursor:pointer;text-decoration:none;transition:all .25s;border:none}
+.nbtn-solid:hover{background:#e8e8e8;transform:translateY(-1px)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 24px 60px;position:relative;overflow:hidden}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;animation:orbf 14s ease-in-out infinite}
+.o1{width:700px;height:700px;background:radial-gradient(circle,rgba(255,255,255,.07) 0%,transparent 70%);top:-15%;left:-20%}
+.o2{width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.05) 0%,transparent 70%);bottom:-15%;right:-15%;animation-direction:reverse;animation-duration:18s}
+@keyframes orbf{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);padding:7px 18px;border-radius:50px;margin-bottom:36px;letter-spacing:.05em;opacity:0;animation:fadeup .7s .2s ease forwards}
+.bdot{width:6px;height:6px;background:#fff;border-radius:50%;animation:pdot 2s infinite}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 3px rgba(255,255,255,.15)}50%{box-shadow:0 0 0 7px rgba(255,255,255,.04)}}
+.h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(56px,9vw,108px);line-height:.93;letter-spacing:-.025em;color:#f5f5f5;margin-bottom:16px;position:relative;z-index:1}
+.h1 .ln{display:block;overflow:hidden}
+.h1 .li{display:block;opacity:0;transform:translateY(110%);animation:slideup .85s ease forwards}
+.l1 .li{animation-delay:.3s}.l2 .li{animation-delay:.48s}.l3 .li{animation-delay:.66s}
+.h1 em{font-style:italic;color:rgba(255,255,255,.65)}
+#rw{display:inline-block;font-style:italic;color:rgba(255,255,255,.7)}
+.makevid{font-size:clamp(11px,1.5vw,15px);font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.7);margin:24px 0 10px;opacity:0;animation:fadeup .7s .85s ease forwards;position:relative;z-index:1}
+.hsub{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2vw,22px);color:rgba(255,255,255,.4);font-style:italic;margin:0 0 40px;opacity:0;animation:fadeup .7s .98s ease forwards;position:relative;z-index:1}
+.hctas{display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fadeup .7s 1.1s ease forwards;position:relative;z-index:1}
+.btnp{display:inline-block;background:#fff;color:#000;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:800;padding:16px 44px;border-radius:50px;text-decoration:none;transition:all .3s;letter-spacing:.03em;cursor:pointer;border:none}
+.btnp:hover{background:#efefef;transform:translateY(-3px);box-shadow:0 16px 48px rgba(255,255,255,.18)}
+.btno{display:inline-block;background:transparent;border:1px solid rgba(255,255,255,.2);color:#f5f5f5;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;padding:16px 40px;border-radius:50px;text-decoration:none;transition:all .3s;cursor:pointer}
+.btno:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+.hlink{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.hlink:hover{color:#fff}
+.divl{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)}
+section{padding:90px 24px}
+.cnt{max-width:1100px;margin:0 auto}
+.slbl{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.slbl::before{content:'';width:20px;height:1px;background:rgba(255,255,255,.25)}
+.sh{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);line-height:1.0;color:#f5f5f5;margin-bottom:18px;letter-spacing:-.02em}
+.sh em{font-style:italic;color:rgba(255,255,255,.5)}
+.ssub{font-size:16px;color:rgba(255,255,255,.45);line-height:1.7;max-width:540px}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideup{to{opacity:1;transform:translateY(0)}}
+footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:32px 24px}
+.ftin{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.ftlogo{display:flex;align-items:center;gap:8px}
+.ftlogo img{width:20px;height:20px;object-fit:contain;filter:invert(1) brightness(.5)}
+.ftlogo span{font-size:13px;font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.1em}
+.ftlinks{display:flex;gap:24px}
+.ftlinks a{font-size:12px;color:rgba(255,255,255,.22);text-decoration:none;transition:color .2s}
+.ftlinks a:hover{color:#f5f5f5}
+.ftr{font-size:12px;color:rgba(255,255,255,.22)}
+@media(max-width:768px){.nlinks{display:none}.h1{font-size:clamp(44px,12vw,70px)}}
+
+
+/* FLASHCARDS */
+.fc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:52px}
+.fc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:30px 28px;cursor:pointer;transition:all .35s;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06),transparent);opacity:0;transition:opacity .3s}
+.fc:hover{border-color:rgba(255,255,255,.28);transform:translateY(-4px) scale(1.01);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.fc:hover::before{opacity:1}
+.fc-q{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2vw,21px);font-style:italic;color:rgba(255,255,255,.75);line-height:1.4;margin-bottom:14px}
+.fc-ico{font-size:22px;margin-bottom:16px;display:block}
+.fc-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22)}
+/* SOL */
+.sol-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;margin-top:56px}
+.sol-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:50px;padding:8px 18px;font-size:12px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.6);margin-bottom:28px;text-transform:uppercase}
+.sol-h{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);line-height:1.1;color:#f5f5f5;margin-bottom:16px;letter-spacing:-.02em}
+.sol-h em{font-style:italic;color:rgba(255,255,255,.5)}
+.sol-p{font-size:15px;color:rgba(255,255,255,.42);line-height:1.75;margin-bottom:28px}
+.sol-steps{display:flex;flex-direction:column;gap:14px}
+.sol-step{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:12px;transition:all .3s}
+.sol-step:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.07)}
+.sol-num{font-family:'Cormorant Garamond',serif;font-size:22px;color:rgba(255,255,255,.35);flex-shrink:0;line-height:1;padding-top:2px;width:22px}
+.sol-stxt h4{font-size:14px;font-weight:700;color:#f5f5f5;margin-bottom:4px}
+.sol-stxt p{font-size:13px;color:rgba(255,255,255,.38);line-height:1.55}
+/* Dashboard preview for brands */
+.brand-dash{background:#0e0e0e;border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden}
+.bd-chrome{background:#151515;border-bottom:1px solid rgba(255,255,255,.07);padding:10px 18px;display:flex;align-items:center;gap:8px}
+.bd-dots{display:flex;gap:5px}
+.bdd{width:10px;height:10px;border-radius:50%}
+.bdd.r{background:#3a3a3a}.bdd.y{background:#2e2e2e}.bdd.g{background:#393939}
+.bd-url{flex:1;background:rgba(255,255,255,.04);border-radius:5px;padding:3px 12px;font-size:10px;color:rgba(255,255,255,.22);margin:0 14px;text-align:center}
+.bd-main{padding:22px}
+.bd-head{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:16px;display:flex;justify-content:space-between}
+.bd-head span{color:rgba(255,255,255,.18)}
+.bd-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.bd-stat{background:#111;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px}
+.bd-sn{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1;margin-bottom:3px}
+.bd-sl{font-size:9px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.08em}
+.bd-camps{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.bd-camp{display:flex;align-items:center;gap:10px;padding:10px 13px;background:#111;border:1px solid rgba(255,255,255,.07);border-radius:9px}
+.bd-camp-logo{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.bd-camp-info{flex:1}
+.bd-camp-info strong{display:block;font-size:11px;color:#f5f5f5;margin-bottom:2px}
+.bd-camp-info span{font-size:9px;color:rgba(255,255,255,.28)}
+.bd-camp-stat{text-align:right;flex-shrink:0}
+.bd-camp-stat strong{display:block;font-size:11px;color:#fff}
+.bd-camp-stat span{font-size:9px;color:rgba(255,255,255,.28)}
+.bd-pbar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:4px;overflow:hidden}
+.bd-pfill{height:100%;border-radius:2px;background:rgba(255,255,255,.4)}
+.bd-creators{display:flex;flex-wrap:wrap;gap:8px}
+.bd-cr{display:flex;align-items:center;gap:7px;padding:6px 10px;background:#111;border:1px solid rgba(255,255,255,.07);border-radius:20px}
+.bd-cr-av{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:rgba(255,255,255,.6)}
+.bd-cr span{font-size:10px;color:rgba(255,255,255,.4)}
+.bd-cr-match{font-size:9px;color:rgba(255,255,255,.25);margin-left:2px}
+/* HOW BRANDS */
+.how-brand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.hb-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:30px;transition:all .3s;position:relative;overflow:hidden}
+.hb-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:#fff;transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.hb-card:hover{border-color:rgba(255,255,255,.22);transform:translateY(-4px)}
+.hb-card:hover::after{transform:scaleX(1)}
+.hb-num{font-family:'Cormorant Garamond',serif;font-size:48px;color:rgba(255,255,255,.12);line-height:1;margin-bottom:14px}
+.hb-card h3{font-size:16px;font-weight:700;color:#f5f5f5;margin-bottom:8px}
+.hb-card p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.65}
+/* STGRID */
+.stgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px}
+.stcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:28px 18px;text-align:center;transition:all .3s}
+.stcard:hover{border-color:rgba(255,255,255,.18);transform:translateY(-3px)}
+.stn{font-family:'Cormorant Garamond',serif;font-size:48px;color:#fff;line-height:1;margin-bottom:8px}
+.stl{font-size:12px;color:rgba(255,255,255,.38);line-height:1.5}
+/* FAQ */
+.faqin{max-width:660px;margin:56px auto 0}
+.faqit{border-bottom:1px solid rgba(255,255,255,.08)}
+.faqq{width:100%;background:none;border:none;text-align:left;padding:18px 0;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#f5f5f5;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;transition:color .2s}
+.faqq:hover{color:#fff}
+.faqa2{width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:9px;color:rgba(255,255,255,.4)}
+.faqit.op .faqa2{background:#fff;border-color:#fff;color:#000;transform:rotate(180deg)}
+.faqans{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faqans p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;padding-bottom:18px}
+.faqit.op .faqans{max-height:200px}
+/* CTA */
+.brand-cta{background:#0a0a0a;text-align:center;padding:110px 24px;position:relative;overflow:hidden}
+.brand-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:350px;background:radial-gradient(ellipse,rgba(255,255,255,.04) 0%,transparent 70%);pointer-events:none}
+.brand-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6.5vw,82px);line-height:.95;color:#f5f5f5;margin-bottom:13px;letter-spacing:-.02em;position:relative;z-index:1}
+.brand-cta h2 em{font-style:italic;color:rgba(255,255,255,.5)}
+.brand-cta p{font-size:15px;color:rgba(255,255,255,.38);margin-bottom:36px;position:relative;z-index:1}
+.brand-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.brand-trust{display:flex;gap:28px;justify-content:center;margin-top:36px;flex-wrap:wrap;position:relative;z-index:1}
+.bt-item{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.3)}
+.bt-icon{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:9px}
+@media(max-width:768px){.fc-grid,.sol-layout,.how-brand-grid,.stgrid{grid-template-columns:1fr}.how-brand-grid{grid-template-columns:repeat(2,1fr)}.stgrid{grid-template-columns:repeat(2,1fr)}}
+
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="ring"></div>
+<nav id="nav">
+  <a href="index.html" class="nlogo"><img src="data:image/jpeg;base64,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" alt="CREATR.UGC"/><span>CREATR.UGC</span></a>
+  <ul class="nlinks">
+    <li><a href="index.html">For Creators</a></li>
+    <li><a href="brands.html" class="active">For Brands</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div style="display:flex;gap:10px;align-items:center">
+    <a href="index.html" class="nbtn-outline" style="font-size:12px;padding:8px 18px">For Creators &rarr;</a>
+    <button class="nbtn-solid" style="font-size:12px;padding:8px 18px" onclick="window.location.href='mailto:creatrugc@gmail.com?subject='+encodeURIComponent('Brand Demo - CREATR.UGC')">Book a Demo</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="grid-bg"></div><div class="orb o1"></div><div class="orb o2"></div>
+  <div class="badge"><div class="bdot"></div>TRUSTED BY BRANDS &mdash; NO UPFRONT PAYMENT</div>
+  <h1 class="h1">
+    <span class="ln l1"><span class="li">FIND THE RIGHT</span></span>
+    <span class="ln l2"><span class="li"><em>INFLUENCERS</em></span></span>
+    <span class="ln l3"><span class="li">AND LAUNCH IN MINUTES.</span></span>
+  </h1>
+  <p class="makevid">AI MATCHING. REAL RESULTS.</p>
+  <p class="hsub">Describe your product. We find the creators. You pay for views.</p>
+  <div class="hctas">
+    <button class="btnp" id="hero-demo-btn">BOOK A DEMO &mdash; IT&rsquo;S FREE</button>
+    <a href="index.html" class="hlink">Are you a creator? Join here &rarr;</a>
+  </div>
+</div>
+
+<!-- BRAND DASHBOARD PREVIEW -->
+<div style="padding:0 32px 0">
+<div class="brand-dash rv" style="max-width:960px;margin:0 auto 90px;box-shadow:0 60px 140px rgba(0,0,0,.85)">
+  <div class="bd-chrome">
+    <div class="bd-dots"><span class="bdd r"></span><span class="bdd y"></span><span class="bdd g"></span></div>
+    <div class="bd-url">brands.creatr.ugc</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22)">Campaign Manager</div>
+  </div>
+  <div class="bd-main">
+    <div class="bd-head">CAMPAIGN OVERVIEW <span>Last 30 days</span></div>
+    <div class="bd-stats">
+      <div class="bd-stat"><div class="bd-sn">3</div><div class="bd-sl">Active Campaigns</div></div>
+      <div class="bd-stat"><div class="bd-sn">2.4M</div><div class="bd-sl">Total Views</div></div>
+      <div class="bd-stat"><div class="bd-sn">&#8377;1.2L</div><div class="bd-sl">Total Paid Out</div></div>
+    </div>
+    <div class="bd-head" style="margin-top:4px">YOUR CAMPAIGNS</div>
+    <div class="bd-camps">
+      <div class="bd-camp"><div class="bd-camp-logo" style="background:#1a1a2e">Z</div><div class="bd-camp-info"><strong>Zivora â Summer Launch</strong><span>12 creators &middot; UGC Reels &middot; Budget &#8377;80,000</span><div class="bd-pbar"><div class="bd-pfill" style="width:72%"></div></div></div><div class="bd-camp-stat"><strong>1.1M views</strong><span>&#8377;52,000 spent</span></div></div>
+      <div class="bd-camp"><div class="bd-camp-logo" style="background:#1a2e1e">W</div><div class="bd-camp-info"><strong>Wakefit â Sleep Better</strong><span>8 creators &middot; UGC Stories &middot; Budget &#8377;50,000</span><div class="bd-pbar"><div class="bd-pfill" style="width:45%"></div></div></div><div class="bd-camp-stat"><strong>640K views</strong><span>&#8377;28,000 spent</span></div></div>
+      <div class="bd-camp"><div class="bd-camp-logo" style="background:#2a1e14">b</div><div class="bd-camp-info"><strong>boat â Neckband Launch</strong><span>6 creators &middot; Reels + Shorts &middot; Budget &#8377;40,000</span><div class="bd-pbar"><div class="bd-pfill" style="width:30%"></div></div></div><div class="bd-camp-stat"><strong>320K views</strong><span>&#8377;18,000 spent</span></div></div>
+    </div>
+    <div class="bd-head">AI-MATCHED CREATORS</div>
+    <div class="bd-creators">
+      <div class="bd-cr"><div class="bd-cr-av">P</div><span>Priya S.</span><span class="bd-cr-match">96% match</span></div>
+      <div class="bd-cr"><div class="bd-cr-av">R</div><span>Rahul M.</span><span class="bd-cr-match">94% match</span></div>
+      <div class="bd-cr"><div class="bd-cr-av">A</div><span>Ananya K.</span><span class="bd-cr-match">91% match</span></div>
+      <div class="bd-cr"><div class="bd-cr-av">K</div><span>Karan V.</span><span class="bd-cr-match">89% match</span></div>
+      <div class="bd-cr"><div class="bd-cr-av">S</div><span>Sneha T.</span><span class="bd-cr-match">88% match</span></div>
+      <div class="bd-cr" style="border-style:dashed;color:rgba(255,255,255,.22)"><span style="font-size:9px">+47 more</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="divl"></div>
+
+<!-- PROBLEM: FLASHCARDS -->
+<section style="background:#0a0a0a">
+  <div class="cnt">
+    <div class="rv"><div class="slbl">THE PROBLEM</div></div>
+    <div class="rv"><h2 class="sh">Influencer marketing is<br/>expensive <em>guesswork.</em></h2></div>
+    <div class="rv"><p class="ssub">Most brands spend weeks finding creators, waste budget on the wrong ones, and have no idea if it worked.</p></div>
+    <div class="fc-grid">
+      <div class="fc rv"><span class="fc-ico">&#128269;</span><div class="fc-q">Still browsing Instagram and TikTok hoping to spot the right influencer?</div><div class="fc-tag">Time wasted &rarr;</div></div>
+      <div class="fc rv d1"><span class="fc-ico">&#128172;</span><div class="fc-q">Wasting hours going back and forth in DMs and email threads?</div><div class="fc-tag">Energy drained &rarr;</div></div>
+      <div class="fc rv d2"><span class="fc-ico">&#128200;</span><div class="fc-q">Tracking creators in spreadsheets instead of launching campaigns?</div><div class="fc-tag">Ops nightmare &rarr;</div></div>
+      <div class="fc rv d3"><span class="fc-ico">&#128176;</span><div class="fc-q">Seeing platforms ask for payment before showing you anything?</div><div class="fc-tag">Zero transparency &rarr;</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divl"></div>
+
+<!-- SOLUTION -->
+<section style="background:#000">
+  <div class="cnt">
+    <div class="sol-layout">
+      <div>
+        <div class="rv"><div class="sol-badge">&#9889; THE SOLUTION</div></div>
+        <div class="rv"><h2 class="sol-h">Find the Right Influencers<br/>For Your Brand And<br/><em>Launch In Minutes.</em></h2></div>
+        <div class="rv"><p class="sol-p">Describe your product or service and let our AI match you with influencers by region, niche and budget &mdash; and start your campaign within minutes. No outreach. No upfront payment.</p></div>
+        <div class="sol-steps">
+          <div class="sol-step rv"><div class="sol-num">1</div><div class="sol-stxt"><h4>Describe your brand</h4><p>Tell us your product, niche, target audience, and budget. Takes 3 minutes.</p></div></div>
+          <div class="sol-step rv d1"><div class="sol-num">2</div><div class="sol-stxt"><h4>AI matches your creators</h4><p>We surface creators by region, niche, content style and real engagement data. Not just followers.</p></div></div>
+          <div class="sol-step rv d2"><div class="sol-num">3</div><div class="sol-stxt"><h4>Campaign live in minutes</h4><p>Approve creators, set your brief. Creators get notified and start making content immediately.</p></div></div>
+          <div class="sol-step rv d3"><div class="sol-num">4</div><div class="sol-stxt"><h4>Pay only for real views</h4><p>Track every view in real time. Pay only for results. Cap your budget. No surprises.</p></div></div>
+        </div>
+      </div>
+      <div class="rv" style="display:flex;flex-direction:column;gap:14px">
+        <div style="background:#111;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:18px">CAMPAIGN BRIEF BUILDER</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,.4)">&#128247; Product: Premium Wireless Headphones</div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,.4)">&#127919; Niche: Tech, Lifestyle, Music</div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,.4)">&#127757; Region: Mumbai, Bangalore, Delhi</div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,.4)">&#128176; Budget: &#8377;50,000 &mdash; &#8377;1,00,000</div>
+          </div>
+          <div style="margin-top:14px;background:#fff;color:#000;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:800;padding:12px;border-radius:9px;text-align:center;cursor:pointer">&#9889; FIND MY CREATORS</div>
+        </div>
+        <div style="background:#111;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px">AI MATCHED FOR YOU</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 13px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px">
+              <div style="width:28px;height:28px;border-radius:50%;background:#1a1a3a;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">P</div>
+              <div style="flex:1"><div style="font-size:11px;color:#f5f5f5;font-weight:600">Priya Sharma</div><div style="font-size:9px;color:rgba(255,255,255,.28)">Tech &middot; Mumbai &middot; 48K followers</div></div>
+              <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.6);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:20px">96%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 13px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px">
+              <div style="width:28px;height:28px;border-radius:50%;background:#1a3a1a;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">R</div>
+              <div style="flex:1"><div style="font-size:11px;color:#f5f5f5;font-weight:600">Rahul Mehta</div><div style="font-size:9px;color:rgba(255,255,255,.28)">Lifestyle &middot; Bangalore &middot; 31K followers</div></div>
+              <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.6);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:20px">94%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 13px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px">
+              <div style="width:28px;height:28px;border-radius:50%;background:#3a2a1a;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">A</div>
+              <div style="flex:1"><div style="font-size:11px;color:#f5f5f5;font-weight:600">Ananya Kapoor</div><div style="font-size:9px;color:rgba(255,255,255,.28)">Music &middot; Delhi &middot; 22K followers</div></div>
+              <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.6);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:20px">91%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divl"></div>
+
+<!-- HOW IT WORKS FOR BRANDS -->
+<section style="background:#0a0a0a">
+  <div class="cnt">
+    <div class="rv"><div class="slbl">HOW IT WORKS</div></div>
+    <div class="rv"><h2 class="sh">From brief to campaign live<br/><em>in under 10 minutes.</em></h2></div>
+    <div class="how-brand-grid">
+      <div class="hb-card rv"><div class="hb-num">01</div><h3>Build your brief</h3><p>Tell us your product, niche, target audience, region and budget. No agency jargon. Plain English.</p></div>
+      <div class="hb-card rv d1"><div class="hb-num">02</div><h3>AI matches creators</h3><p>Our AI surfaces the top creators by niche, region and engagement. You see profiles, past work and estimated reach.</p></div>
+      <div class="hb-card rv d2"><div class="hb-num">03</div><h3>Approve your list</h3><p>Select creators you want. Reject the rest. Add notes to your brief. You stay in full control.</p></div>
+      <div class="hb-card rv"><div class="hb-num">04</div><h3>Content goes live</h3><p>Creators get matched, briefed and start making content. You watch it go live in your dashboard.</p></div>
+      <div class="hb-card rv d1"><div class="hb-num">05</div><h3>Track views in real time</h3><p>See every view, every hook performance, every creator&rsquo;s contribution. Live. No spreadsheets.</p></div>
+      <div class="hb-card rv d2"><div class="hb-num">06</div><h3>Pay only for results</h3><p>You set the view cap. We track delivery. You pay only for verified views. No upfront. No surprises.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divl"></div>
+
+<!-- STATS -->
+<section style="background:#000">
+  <div class="cnt">
+    <div class="rv"><div class="slbl">BY THE NUMBERS</div></div>
+    <div class="rv"><h2 class="sh">Performance marketing<br/>that <em>actually performs.</em></h2></div>
+    <div class="stgrid">
+      <div class="stcard rv"><div class="stn">&lt;10</div><div class="stl">Minutes from brief to campaign live</div></div>
+      <div class="stcard rv d1"><div class="stn">&#8377;0</div><div class="stl">Upfront cost. Pay only for real views.</div></div>
+      <div class="stcard rv d2"><div class="stn">3x</div><div class="stl">More views vs equivalent Meta ad spend</div></div>
+      <div class="stcard rv d3"><div class="stn">100%</div><div class="stl">View-verified payouts. Zero guesswork.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divl"></div>
+
+<!-- FAQ BRANDS -->
+<section style="background:#0a0a0a" id="faq">
+  <div class="cnt">
+    <div style="text-align:center"><div class="rv"><div class="slbl" style="justify-content:center">BRAND FAQS</div></div><div class="rv"><h2 class="sh">Everything you need<br/><em>before you launch.</em></h2></div></div>
+    <div class="faqin">
+      <div class="faqit rv"><button class="faqq" onclick="tFaq(this)">How does the payment model work?<div class="faqa2">&#9662;</div></button><div class="faqans"><p>You set a total budget and a per-view rate. Creators earn as views come in, up to your cap. You never pay more than your budget. No upfront, no retainer.</p></div></div>
+      <div class="faqit rv"><button class="faqq" onclick="tFaq(this)">How are creators selected for my campaign?<div class="faqa2">&#9662;</div></button><div class="faqans"><p>Our AI matches by niche, region, engagement quality and content style &mdash; not just follower count. You see the suggested list and approve or reject each creator before anything goes live.</p></div></div>
+      <div class="faqit rv"><button class="faqq" onclick="tFaq(this)">What if a creator doesn&rsquo;t perform?<div class="faqa2">&#9662;</div></button><div class="faqans"><p>You only pay for views delivered. If a creator underperforms, you simply don&rsquo;t pay for views that weren&rsquo;t generated. The budget cap protects you.</p></div></div>
+      <div class="faqit rv"><button class="faqq" onclick="tFaq(this)">How quickly can I launch?<div class="faqa2">&#9662;</div></button><div class="faqans"><p>Most brands go from brief to campaign live in under 10 minutes. Creators are notified immediately and typically start posting within 24&ndash;48 hours.</p></div></div>
+      <div class="faqit rv"><button class="faqq" onclick="tFaq(this)">What niches and regions do you cover?<div class="faqa2">&#9662;</div></button><div class="faqans"><p>Currently covering all major Indian cities across tech, lifestyle, beauty, fitness, food, finance and D2C verticals. Expanding to Southeast Asia in late 2026.</p></div></div>
+      <div class="faqit rv"><button class="faqq" onclick="tFaq(this)">Is there a minimum budget?<div class="faqa2">&#9662;</div></button><div class="faqans"><p>We recommend a minimum of &#8377;20,000 to run a meaningful campaign with 3&ndash;5 creators. There&rsquo;s no platform fee &mdash; 100% of your budget goes toward creator payouts.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divl"></div>
+
+<!-- BRAND CTA -->
+<div class="brand-cta" id="demo">
+  <h2>Ready to run your first<br/>performance <em>campaign?</em></h2>
+  <p>No upfront payment. No agency. Just results.</p>
+  <div class="brand-cta-btns">
+    <button class="btnp" id="cta-demo-btn">BOOK A DEMO &mdash; LET&rsquo;S TALK</button>
+    <a href="index.html" class="btno">See Creator Side &rarr;</a>
+  </div>
+  <div class="brand-trust">
+    <div class="bt-item"><div class="bt-icon">&#10003;</div>No upfront payment</div>
+    <div class="bt-item"><div class="bt-icon">&#10003;</div>Pay only for real views</div>
+    <div class="bt-item"><div class="bt-icon">&#10003;</div>Launch in under 10 minutes</div>
+    <div class="bt-item"><div class="bt-icon">&#10003;</div>Full creator approval control</div>
+  </div>
+</div>
+
+<footer>
+  <div class="ftin">
+    <div class="ftlogo"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAHmAdEDASIAAhEBAxEB/8QAHQABAAIDAQEBAQAAAAAAAAAAAAEDAgQGBwgFCf/EAEsQAQACAQMCAgUGCAwEBQUAAAABAgMEBREGIQcxCBJBUZMTF1JWcZEUIlNUYZKx0RUjMjM2N0RFRlWBlDRicnMWNUJDdCQng+Hw/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAIB/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAER/9oADAMBAAIRAxEAPwD40AFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIgYkRCQABoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACJGHJykGI5ISAiEohI2AA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARKUSMqUcpRwMQmCEgiEohI2AA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARKQYADAAEQkBoANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAACOQSj/AFOUAyEQkAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVibTxEDAddsvht1nvOhrrNt6f12owW8slMUzD9Gng34kX8uldf8MY8/lD0P5l/En6q6/wCGxv4NeJFfPpTcPhg8+He/M/4jc/0V3H4afmd8SPqnuPwwcGO5nwi8RY/wruPw2UeEHiNMf0V3H4YOEHc28I/EWs/0V3H4aPmk8Q/qruPwwcNKHcT4TeIcf4V3H4aPmo8QvqtuHwwcUjh20+FPiBHn0tuPw0fNX1/9WNf8MHFcHDtfmr6/+rGv+GfNZ199Wdd8MHFcfYcfY7W3hb17H+G9d8NXPhj13Hn03rvhjXHo7uw+bPrn6ua74aJ8NeuI/wAPa39QHIQl10eGvW31f1n6jG/hx1rHnsGt/UByY6r5uusf8i1f6iPm86wj+4tX+oDlh09+guraeeyav9R+fu/Te8bRhjLuOgzaek9om9eOQfkCOUgADQAAAAAAAAAAAAAAAAAAAAAAAAAACI5kCI5fQnoueBWt6519d73rBfDsmKe3rR/PT+hHoyeAuq6812Pd98pkwbNitFuJjj5X9D+gOx7Xodm23Ft+3abHp9Nij1cdKx5QJU7Hsu3bNtmDb9BpseDT4qcUpSH6PyVPoV/VZfiym3kCm9ae6GE46e5ndhIK7Y6R7IVXiPcusqsCmaR9FXeI9y6ynJIpTliqiYhfbya9gU5Ya1+3nZfllr5J5BXeOY/lS18vb2yzvPES18lwU5Jt7JlrZJtz5yuyS1stwYXvPH8qWtlm3vlneVOSQU5Jn6TWyc8ea/JbzauSQV3vMf8Aqlq57Tx5rsktfLKRqZOfpS1rzf3y2cs9n4HVW+6HYNrya7XZIiKx+LHPeZ9wK+qt/wBDsO33124Z4x46x+LEz3tPuh8r+I/WOr6p3K17zNdPS0xip+hHiN1luHVe53yZslq6atv4rDE9ohyP4ygAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAK97REPoT0ZvAPcOt9zw7vvmG+n2Wkxb8aOPlfsanox+Be59f7zj3PdsOTTbFhtE2taOPlZ90P6FbDtWg2basG27fp6YdNgpFaVrAw2Ha9DtG349Dt2mx6fT4o9Wtax5N+DhIwYTKeWNwV2VWZ39ZhYESqvKy/aFN5FK7ypvKy8qryCu91GSVmSWvkkFGWVGSVuSeWreQYXmOGtlmq3LLWyTyCnLdrZb9lmZrZJBXe6nJevDOzXyT7AV5LNe92WZTee4Ksl2tkt3nldllz3V3UG39PbVl3Dcc0Y8dfKPbafdAMeq9+2/Ydry63X5ox1pH4tee9p90Pk7xK623DqvcrXyXnHpazxiwx5RCfEvrvcertfNskzi0lZ/isUe5xnIw/GEeaQABoAAAAAAAAAAAAAAAAAAAAAAAABXvIFI7930R6MPgJrutdbj3rfcF8OzUmLRF44nL9n6GPoweA+s633LDvO+4bYdmxzF/VtH89+j7H9ANm2zRbTt2HQbfgpg0+GsUpSkcREQJU7BtGh2bbseh23TY9PpsfatKw/SiODyIBKJPaxmQRMsOUyxsDGZYXlnKqe4Iv5KbM79oU3nuDC6nJ/JZ3lr5ZBXee6jPMcLbz2a2YUpyTWWvk7QtuoyTyCjJPLWyTwuyebVyyCnLflRklnl7S1skgqvdRklnlniVOSewKsl1F2eSX4PVfUO39PbVl1+4ZorWkcxHPeZ90Aw6u3/b9g27Jrdwzxjx+znzt+iHyP4p9b63q7dbWm810eOeMWLnyj3sfE7rvc+sN1tmzZJx6Ss8YsMT2iHGc8jDkAaAAAAAAAAAAAAAAAAAAAAAAAAAAARHIJrHrTxHL6D9F/wF1vXO7Y953/ABZNNsWGYtxaOJzT7o/R/wD32Z+ir4F63rbd8W+75p74tjw25j144+Wn3R+h9+7Ntmi2rRY9HocFMODHHq0rWPISbNteh2nQ4tHt2DHp8GKvq0pWPKG+jhIAImQReeJYzPdMzyrkCWEpmWEgi8qryzmVVwReeym8srqrgwvPZrZJXZJauSQV5ZUXlnksovPIphkns1slohnlv7FGSYBVktVq578yuyT5tXOCnN5tbIuzy1cl+wK8rXyT2WZL9nOdZ9Tbd0vtWXX7lmisVj8SvttPugGPV/Uu3dN7Zk1u5Zox0rHNY9tp90Pj/wATuvNx6y3W+XJe2PS1njFhie0QnxN683HrHcpyZ7zXTVtPyWKPKIcXM8jDmZ8wBoAAAAAAAAAAAAAAAAAAAAAAAAAABEcyJKRy+h/Re8BdX1vr8e+b9hth2bHaLVraOJzf/pq+i34Ga3r3e8e671hnFseCYtPrx/PT7of0H2bbNFtWgx6LQYMenwYoitKVjyiANl2zQ7TosWi27TY9Pp8UerjpWPKG9KOEwCUW8ksZnsByx5OezCZBMyxmSZYyBMq5lMyxmQYTLC8splVMgxlTknusyTw1skgqyTw17z5rsktS8+YMLypvPDK89mvlkUrz3a957rcn8lrZJBjdrZVl7yoyZO3cFGXzamSfNflv2c91d1Bt3T20Ztw3LPGPFjjn1ee9p90Ao6t6h2/p/asmu3DNFaUjtEz3mXxv4p9c7h1hvN82bJeNLW38Vime0Qz8VOvtw6y3jJlvfJj0cW/isEz2iHET3GEzz5gDQAAAAAAAAAAAAAAAAAAAAESMSAMABQBxzHIFazbye/ei/wCA+4eIG503feseTTbFitzM2j+emPZDD0XfA7cOvd0pvG7YLYtiw25m144jLPuh/QXYdq0Oy7di0G24KYdLij1aUrHkJR05sm37Ht2Pb9s02PT6bF2pWsP1GPJyCeSUcomQJlHPYlhyCJljMkywBMyjlE/ykSBdhMq82t0mKeMmpxUtHnFrxCm2v0Hn+Gaf4kAuvKq8qb7lt/57p/iQotuWg/PdP8SAX5LqMluK91N9z2/890/xIauXc9BP9t0/xIBdknmVGSVGTc9BH9t0/wASFF9z2/8AP9L8SAW5JUZJVW3Pb+f+N0/xIUZdy0HP/G6f4kClmWWtllXl3Pb4/tun+JDXybnt8x21un+JAM8l+Grknljk1+in+2YPiQ/C6r6o2XYNqya/Xa/FXFWP5MWjmZ9wLOr+odu6e2fNuG5Z4xYsccxzPe0+6Hxj4r+Im4dZ7pebWti0VZ/isMT2+2Wfi/4i7h1rut+ct8e345/iMMeX2y8/meRhM8gDQAAAAAAAAAAAAAAAAAAAAABEpBiOUgMARIHL030cOhNH4geIum2jX5px6asTlyRE97RHseYvoP0FP648f/x7fsB9+dP7Lt+x7Vi27bNNj0+lwx6uOlIfpR2Yco5BlyTLGZRMgy5RM9mCJkFnPZjywmyOQTyxmUTPdjMgXljN0SrvIP59ellv+86Txh3DBptz1eHFHHq1rlniHkM9T9QT/fO4f7i/73pHpfTz42bt/o8gB+pPUe+z/fGv/wBxf96P/EW++3d9f/uL/vfmIkH6c7/vVvPdtd/uL/vR/D28/wCaa3/cX/e/ORyNfoTvm8T57prf9xf95/DW7f5nrf8AcX/e/P5OQfo/w1vH+Z63/cW/ej+G93/zPW/Gt+9+fycg37bvulvPctX8a37z+F90j+8tX8a372hykG//AAzunt3LWfGt+9XqNw1mpr6mfVZ8se6+SZhqA0meQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAESQSJQ+gfQW/rlxf8Axbvn59A+gvx88eLn8hf9gP6EcnLGUcgy5JljMomewMplHr9mHPZHIM+WPLHnucgmZYzPdhMomQJuwmeS891cz3B/Oj0uOfno3P3cV/ZDyF7B6Xn9de7f6PHwZIlDIAAAAARKAZCISAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARCUQkSPfPQcnjxhxf9i/7HgUvffQcj/wC8WLny+Qv+wH9BZnlEywmzCbgtm7GbMJuiZBbyw5Y88MfX7gzm7GbK5uwm4LZvZhNrKpsxtkBlfJZjOSVeS7CbCn89PS0nnxn3Pjy4r+x5G9a9LL+ujdv9HkokTCEwCQAAARKGSOASACJSA0AGgAAAAAAAAAAAAAAAAAAAAAAAAAAAIhICUS999B3+t6nP5C37HgUvevQgmI8X8XP5C/7Aff0ywvdhMsLzyC2bHyn6VHJNxS6cnZXNmHrsJuCyb2YTZjN7K5uCybq5yMJsrme4M75GHyndhMoB/P30rbev4zbt/o8ner+lTHHjDuXu4r+x5QJEwkAAABEgkRCQAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAARL3r0I+3i5j/wCxf9jwWXu/oTzx4tU/7Fv2A+9b3VzdTOTuxvkFL5yMJuo9dHrgv+URN1HyiPlPxgXTklhORXORhNwWzdhMq5uj1wZXlhN+GF7q5kHwP6U9vX8Y91n7Hlb1L0oY48YN1/0eWiWSIQyAAARKUSCAAAATyQhMASkBoANBEJEiPakAAFAAAAAAAAAAAAAAAACJSiRlSAMAARL3f0KP616z7sF/2PCJe7ehXf1PFiP06W4Pua9+GE5FeS8c/wAuPvVzeked4+8F3rom6n5Sn06/ei+SnH8un3iltr1YzkVevT6cfexm9fpR94LZvVE5FXrx9KPvY/KR9OPvBZORE3qpnJT6cfej14nymPvBZe/dHrKrW49sfeqnLSPO9PvB8KelFMT4u7nx+h5Y9O9Je05fFrc7x3jmO8PM/Vn6MiWLI9Wfoyn1be6w2IDifoyn1J90ggOJ+jJxP0ZADi3uOJ+jIAcT9GTifoyCJITxP0ZOJ+jIAnv7pO/ukagT390nf3SJQHFvcnv7pBAAoAABMR7wQAAAAAAAAAAAAAAAAAAAA/Q2Pet02TVfhW1a3Po83HHr4r8S/PBLrJ8SOuuf6Ubn8ezC3iL1xM9+qNz+PZywDqPnD63+tG5/7ix84fWv1o3P49nLgOojxD62+tG5/Hsn5xet/rRufx7OWAdR84nW/wBaNz+PYnxE63+tG5/Hs5aTgHUfOH1t9Z9y+PZlHiL1vH+J9y+PZygDq58Ret5/xPuXx7MJ6/6ztP43Uu5T/wDns5dMA+zfR86T2Dqvw/xbt1DtmDctbfJb182avrWl6Bk8Megfqzoef+hznorRx4RaH/ru9Py3gU4yfDPoP6taH9Rr5fDXob2dNaH9R2eXJWI7ebVy5AcdPhx0PWe3TWi/UVZPDvor6t6H9R12S9fpKMmSvAOMy+HPRXP9HdJ9yi/h30V9XtJ9zr8k8z3a2e3sgHI5PD3oyJ7dP6T7lc9A9HxHbp/Sfc6q0+9RnvEfiwDlM3QPSP8AkOk/VUx0F0jH9x6T7nT3lXe9Yj9IY5jJ0N0lE/8AkWk+5Tk6H6Tj+49L9zpb3/8AVKiZ9s2DHL6jorpaPLZNP9zVydG9Mf5Pp/udNnvzZp5b9wc1m6R6bjy2jT/c1cvSXTsf3VgdFlnvLWyz2BzuTpTp6PLbMCqel9g4/wDLMD9vIqyCXPZOmNi9m34FFunNkj+78L93M18gp+NPT+zfmGH7mE7Bss/2DD9z9Wym8g/KybDtMRP/ANDhjhxPV2facFZ0ui02OcnttHsfpdbdSxSLbfoL828r3hwWS1pvNpnmZBiAAAAAAAAAAAAAAAAAAAAAAAAI4SJAAESlEggABM+xCY9gPub0XJmPCPQ/9d3peWzzL0Y78eEe3f8AXd6Plv8A8wpXkuoyWiTLk5UXnsBkmsQ1byzvPPta2SaxAGW8RDWvblN55UZbgrz5OI9Vr5LssktfJIMb5OGvkyT7U5LqclwRe7Xy5OexfJ7GtlycQCMl2lkyczLLLl5a9714BVlu18kpyXU3v2BXklr5JW5Jrw1byCvJKm6zJPCjJeOJmZ4/SCvL5fyu7g+s+p5xRbRaG8Tbji949ietOrIpW2j26/rW8rZPd9jz69pvebWtMz75BF5mbTNp5mUAMABoAAAAAAAAAAAAAAAAAAAAAAAAAAAJAARwe0lIPt30aMnHhJt323ehZbvN/Rvvx4T7f9t3oGW//MKMt/a1735RfJyrvfgE5LcNa8+9N8inJfsDHLk4UWvyZMlVGS4Mbz2mWtktWZMmRTe4MMk+bXyZGWfJw1smQDJfiGrlnsm+Rr58sepIK8l+0tPJdnkycw1r3BjeVGS5kv3VXv7wReVF54hN795VXvxEgrzz2cD171PTHjtodFfm89rWifI6+6smk22/Q2jnyyXj9jzq9rWtM2nmZ9oMbWtM955RwT7EiQRKRoANAAAAAAAAAAAAAAAAAAAAAAAAAAARAlIAIkgkgH2h6OWTjwr0PP07u/y5Jl516O08eFmhj/nu7+9+IFF78KL5OUZMndTe/AMr37NbJflllyNfJcGGSyjLkiIMuThReYkFeW6jJl4ZZbxENbJNeQMmTt3UZMhlu1suQEZMjU1GXsnLkrDWzXiYBhkydmvkyJyXU3kGN7qsk9k3lXkvxE2nyjvyDDJPHeXn/XXV3ycW0G33/G8sl49iOuur4rW2i23Jzee1rx7Psec3vNpmbTMzPvEl7za82tPMz7ZYgKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEJEokglIPsT0eLceF+h+2Xe5MnPk889H+ePDLQ/bLucmTjyFM8l49jWyZP0oyW9qjLlgGWTJ/zKMuSsMcmRTkvyBe9VOS/ZGS/Hdr5LAxyXa+S/Myyy5OIauS9eAY57e+WvkvyZ78y1sk8AjJKjLPKcl1N5SMbqck9mV5U3njkGOS/Ed3n3iH1RFMU6DRZObz/OWifL9B171f8AJetoNuv3ntkvHs+x5rkvbJM2tM2tPeZlTC9rTPM92IDAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiEiORJJEJIB9deBE8eGm3cfpdvMvO/BDc9Dh8PNJjzazT47xM81tkjl2WTeNtntGv0nxYFRtZJ9zXyWa2Td9uj+36X4sNe27bfzz+H6X4sA28kte+Tjzatt22/8AP9L8SGvfdNBM/wDH6X4kA3rzWZ7tXJk4mY5UZN00HHbW6f4kNXJuWi/PdPz/ANyAX5cke1rZMvfs1su5aP8APMHxIat9x0f55g+JANzJflrZLNe24aP88wfEhTfcNHz/AMZg+JANibqry176/Rz5arB+vDG+s03HbU4fiQkXZJ4eddf9YRji+g23JzM9smSPZ9jPr/rHHjx20G25Obz2yXj2PMcl7XtNrd5nzlQZLetabTMzM+csE2QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC2ufNWvq1y3rHuiT8J1H5xk/XlUDF34Tqfy2T9aT8I1H5a/60qQFn4Tn9ubJ96Y1Ooj/wB6/wB6oBZOp1E/+9f7z8Jz/lr/AKysBZ+EZvy1/vPwjN+Vv96sBZ+EZvyt/vR8tl/KX/WYAM/l835S33pjPm/K3+9WAzte1vO3P2sOQGkgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k=" alt="logo" style="width:20px;height:20px;object-fit:contain;filter:invert(1) brightness(.5)"/><span>CREATR.UGC</span></div>
+    <div class="ftlinks">
+      <a href="index.html">For Creators</a>
+      <a href="brands.html">For Brands</a>
+      <a href="mailto:creatrugc@gmail.com">Contact</a>
+    </div>
+    <div class="ftr">&copy; 2026 CREATR.UGC &middot; Made in India &#127470;&#127475;</div>
+  </div>
+</footer>
+
+<script>
+
+var cur=document.getElementById('cur'),ring=document.getElementById('ring');
+var mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)}
+animRing();
+document.querySelectorAll('a,button').forEach(function(el){
+  el.addEventListener('mouseenter',function(){ring.style.width='48px';ring.style.height='48px';ring.style.borderColor='#fff'});
+  el.addEventListener('mouseleave',function(){ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(255,255,255,.4)'});
+});
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('sc',window.scrollY>80)});
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('in')})},{threshold:0.08});
+document.querySelectorAll('.rv').forEach(function(el){obs.observe(el)});
+function tFaq(btn){var item=btn.closest('.faqit'),isOpen=item.classList.contains('op');document.querySelectorAll('.faqit').forEach(function(i){i.classList.remove('op')});if(!isOpen)item.classList.add('op')}
+
+document.getElementById('hero-demo-btn').addEventListener('click',function(){window.location.href='mailto:creatrugc@gmail.com?subject='+encodeURIComponent('Brand Demo - CREATR.UGC')});
+document.getElementById('cta-demo-btn').addEventListener('click',function(){window.location.href='mailto:creatrugc@gmail.com?subject='+encodeURIComponent('Brand Demo - CREATR.UGC')});
+</script>
+</body></html>
