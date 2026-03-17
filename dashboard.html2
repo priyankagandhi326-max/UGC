@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CREATR.UGC &mdash; Brand Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'DM Sans',-apple-system,sans-serif;background:#D4F1D6;color:#2D5A30;overflow:hidden}
+.app{display:grid;grid-template-columns:210px 1fr;height:100vh}
+.sidebar{background:#BFF6C3;border-right:1px solid #ACE1AF;display:flex;flex-direction:column}
+.sb-logo{display:flex;align-items:center;padding:22px 18px 16px;border-bottom:1px solid #ACE1AF}
+.sb-logo span{font-size:15px;font-weight:800;letter-spacing:.12em;color:#2D5A30}
+.sb-brand{padding:14px 18px 12px;border-bottom:1px solid #ACE1AF}
+.sb-brand-name{font-size:12px;font-weight:700;color:#2D5A30;margin-bottom:4px}
+.sb-brand-plan{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#3D7A40;background:rgba(172,225,175,.5);border:1px solid #ACE1AF;border-radius:20px;padding:3px 9px}
+.sb-nav{flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:2px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;font-size:12px;font-weight:500;color:#5A9E5D;cursor:pointer;transition:all .2s;border:none;background:none;width:100%;text-align:left}
+.sb-item:hover{color:#2D5A30;background:rgba(172,225,175,.5)}
+.sb-item.active{background:#ACE1AF;color:#2D5A30;font-weight:700}
+.sb-item svg{width:14px;height:14px;flex-shrink:0;opacity:.7}
+.sb-item.active svg{opacity:1}
+.sb-divider{height:1px;background:#ACE1AF;margin:8px 0}
+.sb-footer{padding:14px 18px;border-top:1px solid #ACE1AF}
+.sb-user{display:flex;align-items:center;gap:9px}
+.sb-av{width:28px;height:28px;border-radius:50%;background:#ACE1AF;border:1.5px solid #5A9E5D;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#2D5A30;flex-shrink:0}
+.sb-user-info strong{display:block;font-size:11px;font-weight:700;color:#2D5A30}
+.sb-user-info span{font-size:9px;color:#5A9E5D}
+.main{overflow-y:auto;display:flex;flex-direction:column;background:#E8FAE9}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid #D4F1D6;background:#E8FAE9;position:sticky;top:0;z-index:10}
+.page-title{font-size:16px;font-weight:700;color:#2D5A30}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.tb-badge{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em;color:#3D7A40;background:#D4F1D6;border:1px solid #ACE1AF;border-radius:20px;padding:6px 14px}
+.tb-dot{width:6px;height:6px;border-radius:50%;background:#2D5A30;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 3px rgba(45,90,48,.2)}50%{opacity:.7;box-shadow:0 0 0 7px rgba(45,90,48,.05)}}
+.tb-btn{background:#2D5A30;color:#E8FAE9;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:800;padding:8px 18px;border-radius:20px;border:none;cursor:pointer;transition:all .2s}
+.tb-btn:hover{background:#3D7A40;transform:translateY(-1px)}
+.content{padding:24px 28px;flex:1}
+.screen{display:none}.screen.active{display:block}
+.stat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
+.stat-card{background:#fff;border:1px solid #D4F1D6;border-radius:12px;padding:16px 18px}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5A9E5D;margin-bottom:8px}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;color:#2D5A30;line-height:1;margin-bottom:4px}
+.stat-sub{font-size:10px;color:#5A9E5D}
+.stat-trend{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:4px}
+.trend-up{background:rgba(45,90,48,.1);color:#2D5A30}
+.trend-dn{background:rgba(180,83,9,.1);color:#92400e}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#5A9E5D}
+.sec-link{font-size:11px;color:#5A9E5D;cursor:pointer;transition:color .2s}
+.sec-link:hover{color:#2D5A30}
+.camp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.camp-card{background:#fff;border:1px solid #D4F1D6;border-radius:12px;padding:16px 18px;cursor:pointer;transition:all .25s}
+.camp-card:hover{border-color:#ACE1AF;transform:translateY(-2px);box-shadow:0 4px 20px rgba(172,225,175,.35)}
+.camp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.camp-logo{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.camp-status{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:10px}
+.status-live{background:rgba(45,90,48,.12);color:#2D5A30}
+.status-review{background:rgba(180,83,9,.1);color:#92400e}
+.camp-name{font-size:13px;font-weight:700;color:#2D5A30;margin-bottom:3px}
+.camp-niche{font-size:10px;color:#5A9E5D;margin-bottom:14px}
+.camp-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.camp-metric strong{display:block;font-size:13px;font-weight:700;color:#2D5A30;margin-bottom:2px}
+.camp-metric span{font-size:9px;color:#5A9E5D;text-transform:uppercase;letter-spacing:.06em}
+.camp-bar{height:3px;background:#D4F1D6;border-radius:2px;margin-top:14px;overflow:hidden}
+.camp-fill{height:100%;border-radius:2px;background:#ACE1AF}
+.budget-block{background:#fff;border:1px solid #D4F1D6;border-radius:12px;padding:18px;margin-bottom:18px}
+.budget-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.budget-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5A9E5D}
+.budget-nums{font-size:12px;color:#5A9E5D}
+.budget-nums strong{color:#2D5A30;font-weight:700}
+.budget-track{height:7px;background:#D4F1D6;border-radius:4px;overflow:hidden;margin-bottom:8px}
+.budget-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#2D5A30,#ACE1AF)}
+.budget-tags{display:flex;gap:16px}
+.budget-tag{font-size:10px;color:#5A9E5D;display:flex;align-items:center;gap:5px}
+.budget-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#ACE1AF;flex-shrink:0}
+.creator-table{background:#fff;border:1px solid #D4F1D6;border-radius:12px;overflow:hidden;margin-bottom:20px}
+.ct-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 100px;gap:12px;padding:10px 16px;border-bottom:1px solid #D4F1D6;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5A9E5D}
+.ct-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 100px;gap:12px;padding:12px 16px;border-bottom:1px solid #E8FAE9;align-items:center;transition:background .2s;cursor:pointer}
+.ct-row:hover{background:#E8FAE9}
+.ct-row:last-child{border-bottom:none}
+.ct-creator{display:flex;align-items:center;gap:10px}
+.ct-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.ct-name strong{display:block;font-size:12px;font-weight:700;color:#2D5A30}
+.ct-name span{font-size:10px;color:#5A9E5D}
+.ct-cell{font-size:12px;color:#3D7A40;font-weight:500}
+.ct-pill{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:10px;display:inline-block}
+.pill-approved{background:rgba(45,90,48,.1);color:#2D5A30}
+.pill-pending{background:rgba(180,83,9,.1);color:#92400e}
+.tab-row{display:flex;gap:4px;margin-bottom:18px;background:#D4F1D6;border:1px solid #ACE1AF;border-radius:10px;padding:4px;width:fit-content}
+.tab{font-size:11px;font-weight:700;padding:7px 16px;border-radius:7px;cursor:pointer;color:#5A9E5D;transition:all .2s;border:none;background:none}
+.tab.active{background:#2D5A30;color:#E8FAE9}
+.hook-input-row{display:flex;gap:10px;margin-bottom:16px}
+.hook-input{flex:1;background:#fff;border:1px solid #D4F1D6;border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:13px;color:#2D5A30;outline:none;transition:border-color .2s}
+.hook-input:focus{border-color:#ACE1AF}
+.hook-input::placeholder{color:#5A9E5D}
+.hook-btn{background:#2D5A30;color:#E8FAE9;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:800;padding:11px 20px;border-radius:10px;border:none;cursor:pointer;transition:all .2s}
+.hook-btn:hover{background:#3D7A40}
+.hook-outputs{display:flex;flex-direction:column;gap:8px}
+.hook-out{background:#fff;border:1px solid #D4F1D6;border-radius:10px;padding:13px 16px;font-size:13px;color:#3D7A40;line-height:1.6;cursor:pointer;transition:all .3s}
+.hook-out:hover{border-color:#ACE1AF;color:#2D5A30;background:#E8FAE9}
+.hook-num{font-weight:800;color:#2D5A30;margin-right:8px}
+.hook-formats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.hook-format{background:#fff;border:1px solid #D4F1D6;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all .25s}
+.hook-format:hover{border-color:#ACE1AF;background:#E8FAE9}
+.hf-icon{font-size:22px;margin-bottom:8px}
+.hf-label{font-size:11px;font-weight:700;color:#2D5A30;margin-bottom:3px}
+.hf-sub{font-size:10px;color:#5A9E5D}
+.payout-table{background:#fff;border:1px solid #D4F1D6;border-radius:12px;overflow:hidden}
+.pt-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 100px;gap:12px;padding:10px 16px;border-bottom:1px solid #D4F1D6;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5A9E5D}
+.pt-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 100px;gap:12px;padding:13px 16px;border-bottom:1px solid #E8FAE9;align-items:center;transition:background .2s}
+.pt-row:hover{background:#E8FAE9}
+.pt-row:last-child{border-bottom:none}
+.pt-creator{display:flex;align-items:center;gap:10px}
+.pt-cell{font-size:12px;color:#3D7A40}
+.pt-amt{font-size:13px;font-weight:700;color:#2D5A30}
+.perf-block{background:#fff;border:1px solid #D4F1D6;border-radius:12px;padding:18px;margin-bottom:18px}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:80px;margin-top:14px}
+.chart-bar{flex:1;border-radius:3px 3px 0 0;background:#D4F1D6;transition:background .2s;cursor:pointer}
+.chart-bar:hover{background:#ACE1AF}
+.chart-bar.hi{background:#ACE1AF}
+.chart-bar.hi:hover{background:#2D5A30}
+.chart-labels{display:flex;gap:6px;margin-top:6px}
+.chart-lbl{flex:1;font-size:9px;text-align:center;color:#5A9E5D}
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.activity-block{background:#fff;border:1px solid #D4F1D6;border-radius:12px;padding:16px 18px}
+.act-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #E8FAE9}
+.act-item:last-child{border-bottom:none}
+.act-dot{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.act-text{font-size:11px;color:#3D7A40;line-height:1.5}
+.act-text strong{color:#2D5A30;font-weight:600}
+.act-time{font-size:10px;color:#5A9E5D;margin-top:2px}
+.top-creators-block{background:#fff;border:1px solid #D4F1D6;border-radius:12px;padding:16px 18px}
+.tc-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #E8FAE9}
+.tc-item:last-child{border-bottom:none}
+.tc-rank{font-family:'Cormorant Garamond',serif;font-size:18px;color:#D4F1D6;width:18px;flex-shrink:0}
+.tc-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;flex-shrink:0}
+.tc-info{flex:1}
+.tc-info strong{display:block;font-size:11px;font-weight:700;color:#2D5A30}
+.tc-info span{font-size:10px;color:#5A9E5D}
+.tc-views{font-size:11px;font-weight:700;color:#2D5A30}
+.empty{text-align:center;padding:48px 24px}
+.empty-icon{font-size:32px;margin-bottom:14px;opacity:.5}
+.empty h4{font-size:14px;font-weight:700;color:#3D7A40;margin-bottom:6px}
+.empty p{font-size:12px;color:#5A9E5D;line-height:1.6}
+.cpm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.cpm-card{background:#fff;border:1px solid #D4F1D6;border-radius:12px;padding:16px 18px}
+.cpm-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5A9E5D;margin-bottom:6px}
+.cpm-val{font-family:'Cormorant Garamond',serif;font-size:32px;color:#2D5A30;line-height:1}
+.cpm-sub{font-size:10px;color:#5A9E5D;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="sb-logo">
+    <span>CREATR</span>
+  </div>
+  <div class="sb-brand">
+    <div class="sb-brand-name">Zudio D2C</div>
+    <div class="sb-brand-plan"><span style="width:5px;height:5px;border-radius:50%;background:#3D7A40;display:block"></span>Active</div>
+  </div>
+  <nav class="sb-nav">
+    <button class="sb-item active" onclick="show('overview',this)"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5" opacity=".4"/></svg>Overview</button>
+    <button class="sb-item" onclick="show('campaigns',this)"><svg viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Campaigns</button>
+    <button class="sb-item" onclick="show('creators',this)"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="6" cy="5" r="3"/><circle cx="12" cy="5" r="2" opacity=".5"/><path d="M1 14c0-3 2.2-5 5-5s5 2 5 5"/></svg>Creators</button>
+    <div class="sb-divider"></div>
+    <button class="sb-item" onclick="show('hookengine',this)"><svg viewBox="0 0 16 16" fill="none"><path d="M9 2L4 9h4l-1 5 5-7H8l1-5z" fill="currentColor"/></svg>Hook Engine</button>
+    <button class="sb-item" onclick="show('payouts',this)"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="4" width="14" height="9" rx="2" opacity=".3"/><rect x="1" y="4" width="14" height="4" rx="2"/><rect x="3" y="10" width="3" height="1.5" rx=".5" opacity=".6"/></svg>Payouts</button>
+  </nav>
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-av">ZD</div>
+      <div class="sb-user-info"><strong>Zudio Brand</strong><span>brand@zudio.in</span></div>
+    </div>
+  </div>
+</aside>
+<main class="main">
+  <div class="topbar">
+    <div class="page-title" id="page-title">Overview</div>
+    <div class="topbar-right">
+      <div class="tb-badge"><div class="tb-dot"></div>3 campaigns live</div>
+      <button class="tb-btn" onclick="show('campaigns',document.querySelector('[onclick*=campaigns]'))">+ New Campaign</button>
+    </div>
+  </div>
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <div class="screen active" id="screen-overview">
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-label">Total Views</div><div class="stat-val">2.4M</div><div class="stat-trend trend-up">&#8593; 18%</div></div>
+        <div class="stat-card"><div class="stat-label">Reach</div><div class="stat-val">1.1M</div><div class="stat-trend trend-up">&#8593; 12%</div></div>
+        <div class="stat-card"><div class="stat-label">Impressions</div><div class="stat-val">3.8M</div><div class="stat-trend trend-up">&#8593; 22%</div></div>
+        <div class="stat-card"><div class="stat-label">Total Spent</div><div class="stat-val">&#8377;1.2L</div><div class="stat-sub">of &#8377;3L budget</div></div>
+        <div class="stat-card"><div class="stat-label">Creators Live</div><div class="stat-val">14</div><div class="stat-trend trend-up">&#8593; 4 this week</div></div>
+      </div>
+      <div class="budget-block">
+        <div class="budget-row"><div class="budget-label">Campaign Budget</div><div class="budget-nums"><strong>&#8377;1,20,000</strong> spent of &#8377;3,00,000</div></div>
+        <div class="budget-track"><div class="budget-fill" style="width:40%"></div></div>
+        <div class="budget-tags"><div class="budget-tag">40% utilised</div><div class="budget-tag">&#8377;1,80,000 remaining</div><div class="budget-tag">Est. &#8377;50/1K views CPM</div></div>
+      </div>
+      <div class="ov-grid">
+        <div>
+          <div class="perf-block">
+            <div class="sec-head"><div class="sec-title">Views over time</div><div class="sec-link">Last 30 days</div></div>
+            <div class="chart-bars">
+              <div class="chart-bar" style="height:28%"></div><div class="chart-bar" style="height:35%"></div><div class="chart-bar" style="height:30%"></div><div class="chart-bar" style="height:45%"></div><div class="chart-bar" style="height:40%"></div><div class="chart-bar" style="height:55%"></div><div class="chart-bar" style="height:52%"></div><div class="chart-bar hi" style="height:78%"></div><div class="chart-bar hi" style="height:82%"></div><div class="chart-bar hi" style="height:88%"></div><div class="chart-bar" style="height:70%"></div><div class="chart-bar hi" style="height:95%"></div>
+            </div>
+            <div class="chart-labels"><div class="chart-lbl">Mar 4</div><div class="chart-lbl">6</div><div class="chart-lbl">8</div><div class="chart-lbl">10</div><div class="chart-lbl">12</div><div class="chart-lbl">14</div><div class="chart-lbl">16</div><div class="chart-lbl">18</div><div class="chart-lbl">20</div><div class="chart-lbl">22</div><div class="chart-lbl">24</div><div class="chart-lbl">Today</div></div>
+          </div>
+          <div class="top-creators-block">
+            <div class="sec-head" style="margin-bottom:4px"><div class="sec-title">Top performing creators</div><div class="sec-link" onclick="show('creators',document.querySelector('[onclick*=creators]'))">See all &rarr;</div></div>
+            <div class="tc-item"><div class="tc-rank">1</div><div class="tc-av" style="background:#2D5A30">PR</div><div class="tc-info"><strong>@priyareviews</strong><span>Skincare &middot; Mumbai</span></div><div class="tc-views">4,20,000</div></div>
+            <div class="tc-item"><div class="tc-rank">2</div><div class="tc-av" style="background:#3D7A40">RK</div><div class="tc-info"><strong>@rahulkreates</strong><span>Lifestyle &middot; Delhi</span></div><div class="tc-views">3,80,000</div></div>
+            <div class="tc-item"><div class="tc-rank">3</div><div class="tc-av" style="background:#5A9E5D">AN</div><div class="tc-info"><strong>@ananyastyle</strong><span>Fashion &middot; Bangalore</span></div><div class="tc-views">2,90,000</div></div>
+            <div class="tc-item"><div class="tc-rank">4</div><div class="tc-av" style="background:#ACE1AF;color:#2D5A30">SK</div><div class="tc-info"><strong>@snehakaur</strong><span>Beauty &middot; Chandigarh</span></div><div class="tc-views">2,40,000</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="activity-block">
+            <div class="sec-title" style="margin-bottom:12px">Live activity</div>
+            <div class="act-item"><div class="act-dot" style="background:#2D5A30"></div><div><div class="act-text"><strong>@priyareviews</strong> posted &mdash; 4.2L views so far</div><div class="act-time">2 hours ago</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:#ACE1AF"></div><div><div class="act-text">5 new creators <strong>applied</strong> to Zudio Summer</div><div class="act-time">4 hours ago</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:#d97706"></div><div><div class="act-text">Script from <strong>@rahulkreates</strong> needs approval</div><div class="act-time">6 hours ago</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:#2D5A30"></div><div><div class="act-text">View milestone: <strong>2M total views</strong> reached</div><div class="act-time">Yesterday</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:#5A9E5D"></div><div><div class="act-text"><strong>&#8377;18,400</strong> payout processed to 6 creators</div><div class="act-time">Yesterday</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAMPAIGNS -->
+    <div class="screen" id="screen-campaigns">
+      <div class="camp-grid">
+        <div class="camp-card"><div class="camp-top"><div class="camp-logo" style="background:#2D5A30">ZS</div><div class="camp-status status-live">Live</div></div><div class="camp-name">Zudio Summer Drop</div><div class="camp-niche">Fashion &middot; Women 18-28 &middot; Mumbai, Delhi, Bangalore</div><div class="camp-metrics"><div class="camp-metric"><strong>1.4M</strong><span>Views</span></div><div class="camp-metric"><strong>8</strong><span>Creators</span></div><div class="camp-metric"><strong>&#8377;62K</strong><span>Spent</span></div></div><div class="camp-bar"><div class="camp-fill" style="width:62%"></div></div></div>
+        <div class="camp-card"><div class="camp-top"><div class="camp-logo" style="background:#3D7A40">ZK</div><div class="camp-status status-live">Live</div></div><div class="camp-name">Kurta Collection 2026</div><div class="camp-niche">Ethnic Wear &middot; Men &amp; Women &middot; Pan India</div><div class="camp-metrics"><div class="camp-metric"><strong>680K</strong><span>Views</span></div><div class="camp-metric"><strong>4</strong><span>Creators</span></div><div class="camp-metric"><strong>&#8377;34K</strong><span>Spent</span></div></div><div class="camp-bar"><div class="camp-fill" style="width:34%"></div></div></div>
+        <div class="camp-card"><div class="camp-top"><div class="camp-logo" style="background:#5A9E5D">ZA</div><div class="camp-status status-review">In Review</div></div><div class="camp-name">Accessories Launch</div><div class="camp-niche">Accessories &middot; Gen Z &middot; Tier 1 Cities</div><div class="camp-metrics"><div class="camp-metric"><strong>320K</strong><span>Views</span></div><div class="camp-metric"><strong>2</strong><span>Creators</span></div><div class="camp-metric"><strong>&#8377;16K</strong><span>Spent</span></div></div><div class="camp-bar"><div class="camp-fill" style="width:16%"></div></div></div>
+        <div class="camp-card" style="border-style:dashed;border-color:#ACE1AF;display:flex;align-items:center;justify-content:center;gap:10px;background:#E8FAE9" onclick="alert('New campaign — connect backend via Cursor')"><div style="font-size:22px;color:#ACE1AF">+</div><div><div style="font-size:13px;font-weight:700;color:#5A9E5D">New Campaign</div><div style="font-size:10px;color:#ACE1AF">Launch in under 10 min</div></div></div>
+      </div>
+      <div class="perf-block">
+        <div class="sec-head"><div class="sec-title">Combined campaign views</div><div style="display:flex;gap:8px"><span style="font-size:10px;color:#5A9E5D;padding:4px 10px;background:#D4F1D6;border-radius:6px;cursor:pointer">Instagram</span><span style="font-size:10px;color:#5A9E5D;padding:4px 10px;background:#D4F1D6;border-radius:6px;cursor:pointer">YouTube</span><span style="font-size:10px;color:#E8FAE9;padding:4px 10px;background:#2D5A30;border-radius:6px;cursor:pointer;font-weight:700">All</span></div></div>
+        <div class="chart-bars"><div class="chart-bar" style="height:22%"></div><div class="chart-bar" style="height:38%"></div><div class="chart-bar" style="height:44%"></div><div class="chart-bar" style="height:52%"></div><div class="chart-bar" style="height:48%"></div><div class="chart-bar hi" style="height:65%"></div><div class="chart-bar hi" style="height:72%"></div><div class="chart-bar hi" style="height:80%"></div><div class="chart-bar" style="height:68%"></div><div class="chart-bar hi" style="height:88%"></div><div class="chart-bar hi" style="height:92%"></div><div class="chart-bar hi" style="height:100%"></div></div>
+        <div class="chart-labels"><div class="chart-lbl">Mar 6</div><div class="chart-lbl">8</div><div class="chart-lbl">10</div><div class="chart-lbl">12</div><div class="chart-lbl">13</div><div class="chart-lbl">14</div><div class="chart-lbl">15</div><div class="chart-lbl">16</div><div class="chart-lbl">17</div><div class="chart-lbl">18</div><div class="chart-lbl">19</div><div class="chart-lbl">Today</div></div>
+      </div>
+    </div>
+
+    <!-- CREATORS -->
+    <div class="screen" id="screen-creators">
+      <div class="tab-row">
+        <button class="tab active" onclick="switchTab(this,'tab-applied')">Applied (12)</button>
+        <button class="tab" onclick="switchTab(this,'tab-approved')">Approved (8)</button>
+        <button class="tab" onclick="switchTab(this,'tab-pending')">Pending (3)</button>
+        <button class="tab" onclick="switchTab(this,'tab-invite')">Invite</button>
+      </div>
+      <div id="tab-applied">
+        <div class="creator-table">
+          <div class="ct-head"><div>Creator</div><div>Followers</div><div>Avg Views</div><div>Reach</div><div>Impressions</div><div>Status</div></div>
+          <div class="ct-row"><div class="ct-creator"><div class="ct-av" style="background:#2D5A30">PR</div><div class="ct-name"><strong>@priyareviews</strong><span>Skincare &middot; Mumbai</span></div></div><div class="ct-cell">2.1L</div><div class="ct-cell">4.2L</div><div class="ct-cell">1.8L</div><div class="ct-cell">5.1M</div><div><span class="ct-pill pill-approved">Approved</span></div></div>
+          <div class="ct-row"><div class="ct-creator"><div class="ct-av" style="background:#3D7A40">RK</div><div class="ct-name"><strong>@rahulkreates</strong><span>Lifestyle &middot; Delhi</span></div></div><div class="ct-cell">1.4L</div><div class="ct-cell">3.8L</div><div class="ct-cell">1.2L</div><div class="ct-cell">4.2M</div><div><span class="ct-pill pill-pending">Script Pending</span></div></div>
+          <div class="ct-row"><div class="ct-creator"><div class="ct-av" style="background:#5A9E5D">AN</div><div class="ct-name"><strong>@ananyastyle</strong><span>Fashion &middot; Bangalore</span></div></div><div class="ct-cell">980K</div><div class="ct-cell">2.9L</div><div class="ct-cell">88K</div><div class="ct-cell">3.4M</div><div><span class="ct-pill pill-approved">Approved</span></div></div>
+          <div class="ct-row"><div class="ct-creator"><div class="ct-av" style="background:#ACE1AF;color:#2D5A30">SK</div><div class="ct-name"><strong>@snehakaur</strong><span>Beauty &middot; Chandigarh</span></div></div><div class="ct-cell">650K</div><div class="ct-cell">2.4L</div><div class="ct-cell">72K</div><div class="ct-cell">2.8M</div><div><span class="ct-pill pill-approved">Approved</span></div></div>
+          <div class="ct-row"><div class="ct-creator"><div class="ct-av" style="background:#BFF6C3;color:#2D5A30">KV</div><div class="ct-name"><strong>@karanvlogs</strong><span>Men's Fashion &middot; Hyderabad</span></div></div><div class="ct-cell">420K</div><div class="ct-cell">1.8L</div><div class="ct-cell">55K</div><div class="ct-cell">2.1M</div><div><span class="ct-pill pill-pending">Pending</span></div></div>
+          <div class="ct-row"><div class="ct-creator"><div class="ct-av" style="background:#2D5A30">MT</div><div class="ct-name"><strong>@meghastyle</strong><span>Ethnic Wear &middot; Jaipur</span></div></div><div class="ct-cell">310K</div><div class="ct-cell">1.4L</div><div class="ct-cell">48K</div><div class="ct-cell">1.7M</div><div><span class="ct-pill pill-approved">Approved</span></div></div>
+        </div>
+      </div>
+      <div id="tab-approved" style="display:none"><div class="empty"><div class="empty-icon">&#10003;</div><h4>8 creators approved</h4><p>Switch to Applied tab to see full list with performance data.</p></div></div>
+      <div id="tab-pending" style="display:none"><div class="empty"><div class="empty-icon">&#9203;</div><h4>3 scripts awaiting review</h4><p>Review and approve scripts from @rahulkreates, @karanvlogs, and @nishitaa_r.</p></div></div>
+      <div id="tab-invite" style="display:none"><div class="empty"><div class="empty-icon">&#128279;</div><h4>Invite creators directly</h4><p>Coming soon &mdash; search and invite creators by niche, city, and follower count.</p></div></div>
+    </div>
+
+    <!-- HOOK ENGINE -->
+    <div class="screen" id="screen-hookengine">
+      <div style="max-width:680px">
+        <div style="margin-bottom:20px">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5A9E5D;margin-bottom:6px">Your product or campaign</div>
+          <div class="hook-input-row">
+            <input class="hook-input" id="hook-inp" placeholder="e.g. Zudio summer collection — ethnic cotton kurtas for women"/>
+            <button class="hook-btn" onclick="runHookEngine()">Generate Hooks</button>
+          </div>
+        </div>
+        <div class="sec-head"><div class="sec-title">Hook suggestions</div><div class="sec-link">Regenerate</div></div>
+        <div class="hook-outputs" id="hook-outs">
+          <div class="hook-out"><span class="hook-num">1.</span>POV: You finally found ethnic wear that doesn&rsquo;t cost a fortune&hellip;</div>
+          <div class="hook-out"><span class="hook-num">2.</span>I spent &#8377;800 and got 3 outfits that look like &#8377;8000. Here&rsquo;s the secret.</div>
+          <div class="hook-out"><span class="hook-num">3.</span>This brand is changing how India does ethnic fashion and I&rsquo;m obsessed.</div>
+          <div class="hook-out"><span class="hook-num">4.</span>If you want to look expensive this summer without breaking your budget&hellip;</div>
+          <div class="hook-out"><span class="hook-num">5.</span>Before you spend &#8377;3000 on a kurta, watch this.</div>
+        </div>
+        <div style="margin-top:22px">
+          <div class="sec-title" style="margin-bottom:12px">Replicate as format</div>
+          <div class="hook-formats">
+            <div class="hook-format"><div class="hf-icon">&#127909;</div><div class="hf-label">Short Reel</div><div class="hf-sub">15&ndash;30 sec script</div></div>
+            <div class="hook-format"><div class="hf-icon">&#128248;</div><div class="hf-label">Talking Head</div><div class="hf-sub">60 sec to camera</div></div>
+            <div class="hook-format"><div class="hf-icon">&#127908;</div><div class="hf-label">Voiceover</div><div class="hf-sub">B-roll + audio</div></div>
+            <div class="hook-format"><div class="hf-icon">&#128247;</div><div class="hf-label">Static Post</div><div class="hf-sub">Caption hook</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYOUTS -->
+    <div class="screen" id="screen-payouts">
+      <div class="cpm-grid">
+        <div class="cpm-card"><div class="cpm-label">CPM (Cost per 1K views)</div><div class="cpm-val">&#8377;50</div><div class="cpm-sub">Average across campaigns</div></div>
+        <div class="cpm-card"><div class="cpm-label">Total paid out</div><div class="cpm-val">&#8377;1.2L</div><div class="cpm-sub">14 creators, 3 campaigns</div></div>
+        <div class="cpm-card"><div class="cpm-label">Pending payouts</div><div class="cpm-val">&#8377;38K</div><div class="cpm-sub">3 creators awaiting milestone</div></div>
+      </div>
+      <div class="budget-block" style="margin-bottom:18px">
+        <div class="budget-row"><div class="budget-label">Budget utilisation</div><div class="budget-nums"><strong>&#8377;1,20,000</strong> of &#8377;3,00,000 spent</div></div>
+        <div class="budget-track"><div class="budget-fill" style="width:40%"></div></div>
+        <div class="budget-tags"><div class="budget-tag">40% used</div><div class="budget-tag">&#8377;1,80,000 left</div><div class="budget-tag">2.4M views delivered</div></div>
+      </div>
+      <div class="sec-head"><div class="sec-title">Payout history</div><div style="display:flex;gap:6px"><span class="ct-pill pill-approved" style="cursor:pointer">Approved</span><span class="ct-pill pill-pending" style="cursor:pointer">Pending</span></div></div>
+      <div class="payout-table">
+        <div class="pt-head"><div>Creator</div><div>Campaign</div><div>Views</div><div>Amount</div><div>Status</div></div>
+        <div class="pt-row"><div class="pt-creator"><div class="ct-av" style="background:#2D5A30;width:26px;height:26px;font-size:9px">PR</div><div class="ct-name"><strong style="font-size:11px">@priyareviews</strong><span style="font-size:9px">Mumbai</span></div></div><div class="pt-cell">Zudio Summer</div><div class="pt-cell">4,20,000</div><div class="pt-amt">&#8377;21,000</div><div><span class="ct-pill pill-approved">Paid</span></div></div>
+        <div class="pt-row"><div class="pt-creator"><div class="ct-av" style="background:#3D7A40;width:26px;height:26px;font-size:9px">AN</div><div class="ct-name"><strong style="font-size:11px">@ananyastyle</strong><span style="font-size:9px">Bangalore</span></div></div><div class="pt-cell">Zudio Summer</div><div class="pt-cell">2,90,000</div><div class="pt-amt">&#8377;14,500</div><div><span class="ct-pill pill-approved">Paid</span></div></div>
+        <div class="pt-row"><div class="pt-creator"><div class="ct-av" style="background:#5A9E5D;width:26px;height:26px;font-size:9px">SK</div><div class="ct-name"><strong style="font-size:11px">@snehakaur</strong><span style="font-size:9px">Chandigarh</span></div></div><div class="pt-cell">Kurta 2026</div><div class="pt-cell">2,40,000</div><div class="pt-amt">&#8377;12,000</div><div><span class="ct-pill pill-approved">Paid</span></div></div>
+        <div class="pt-row"><div class="pt-creator"><div class="ct-av" style="background:#ACE1AF;color:#2D5A30;width:26px;height:26px;font-size:9px">RK</div><div class="ct-name"><strong style="font-size:11px">@rahulkreates</strong><span style="font-size:9px">Delhi</span></div></div><div class="pt-cell">Zudio Summer</div><div class="pt-cell">3,80,000</div><div class="pt-amt">&#8377;19,000</div><div><span class="ct-pill pill-pending">Pending</span></div></div>
+        <div class="pt-row"><div class="pt-creator"><div class="ct-av" style="background:#BFF6C3;color:#2D5A30;width:26px;height:26px;font-size:9px">KV</div><div class="ct-name"><strong style="font-size:11px">@karanvlogs</strong><span style="font-size:9px">Hyderabad</span></div></div><div class="pt-cell">Accessories</div><div class="pt-cell">1,80,000</div><div class="pt-amt">&#8377;9,000</div><div><span class="ct-pill pill-pending">Pending</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+</div>
+<script>
+var titles={overview:'Overview',campaigns:'Campaigns',creators:'Creators',hookengine:'Hook Engine',payouts:'Payouts'};
+function show(screen,btn){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.sb-item').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('screen-'+screen).classList.add('active');
+  if(btn)btn.classList.add('active');
+  document.getElementById('page-title').textContent=titles[screen]||screen;
+}
+function switchTab(btn,tabId){
+  btn.closest('.tab-row').querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  btn.classList.add('active');
+  ['tab-applied','tab-approved','tab-pending','tab-invite'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.style.display=id===tabId?'block':'none';
+  });
+}
+function runHookEngine(){
+  var inp=document.getElementById('hook-inp');
+  var outs=document.querySelectorAll('.hook-out');
+  if(!inp.value.trim())return;
+  outs.forEach(function(o){o.style.opacity='0.3'});
+  setTimeout(function(){
+    var hooks=["POV: You found the outfit everyone's going to be wearing this summer\u2026","I wore this to 3 events and got compliments every time. Under \u20b91000.","This collection dropped and I cannot stop buying. Someone stop me.","The fashion brand Indians needed but never had. Here\u2019s why.","Before your next wedding, check this brand. Your wallet will thank you."];
+    outs.forEach(function(o,i){setTimeout(function(){o.innerHTML='<span class="hook-num">'+(i+1)+'.</span>'+hooks[i];o.style.opacity='1';},i*180);});
+  },600);
+}
+</script>
+</body>
+</html>
