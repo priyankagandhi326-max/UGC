@@ -1,22 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0A0A0A;
-  --bg-card: #111111;
-  --bg-sidebar: #0F0F0F;
-  --bg-navbar: #0D0D0D;
-  --border-subtle: #1F1F1F;
-  --border-mid: #2A2A2A;
-  --foreground: #FFFFFF;
-  --text-secondary: #666666;
-  --text-muted: #444444;
-  --accent: #39FF14;
-  --accent-glow: rgba(57, 255, 20, 0.15);
-  --danger: #FF3B3B;
-  --warning: #FFB800;
-  --card: #111111;
-  --line: #1F1F1F;
-  --accent-strong: #25D800;
+  --bg: #0b0f0d;
+  --panel: #111714;
+  --panel-2: #151c18;
+  --panel-border: rgba(255, 255, 255, 0.06);
+  --text-primary: #f3f7f3;
+  --text-secondary: #a7b4aa;
+  --text-tertiary: #6f7b73;
+  --accent: #bff6c3;
+  --accent-2: #ace1af;
+  --accent-soft: rgba(191, 246, 195, 0.08);
+  --accent-border: rgba(191, 246, 195, 0.18);
+  --foreground: var(--text-primary);
+  --background: var(--bg);
 }
 
 @theme inline {
@@ -35,8 +32,8 @@ body {
 
 body {
   margin: 0;
-  background: #0A0A0A;
-  color: #FFFFFF;
+  background: var(--bg);
+  color: var(--text-primary);
   font-family: var(--font-sans, "Plus Jakarta Sans", "Avenir Next", Arial, sans-serif);
 }
 
@@ -63,5 +60,5 @@ textarea {
 }
 
 ::selection {
-  background: rgba(57, 255, 20, 0.28);
+  background: rgba(191, 246, 195, 0.25);
 }
